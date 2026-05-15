@@ -1,13 +1,13 @@
 .container {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
-  justify-content: center;
-  gap: 48px;
-  flex-wrap: wrap;
+  gap: clamp(18px, 3vw, 40px);
 }
 
 .timerBlock {
   text-align: center;
+  min-width: 0;
 }
 
 .timerLabel {
@@ -22,11 +22,13 @@
   font-weight: 700;
   color: var(--text);
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .progressBlock {
   text-align: center;
+  min-width: 0;
 }
 
 .progressValue {
@@ -36,9 +38,16 @@
   font-variant-numeric: tabular-nums;
 }
 
+@media (min-width: 1024px) {
+  .timerValue,
+  .progressValue {
+    font-size: 2.2rem;
+  }
+}
+
 @media (max-width: 480px) {
   .container {
-    gap: 24px;
+    gap: 14px;
   }
 
   .timerValue,

@@ -1,17 +1,22 @@
 /* ====== 收入速率卡片 - 紧凑仪表盘风格 ====== */
 .card {
-  background: var(--surface);
+  align-self: stretch;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 16px;
+  height: 100%;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfffd 100%);
   border-radius: var(--radius-lg);
-  padding: 18px;
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border);
+  padding: 20px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(191, 233, 217, 0.9);
 }
 
 .cardTitle {
   font-size: 0.88rem;
   font-weight: 600;
   color: var(--text);
-  margin-bottom: 12px;
+  margin-bottom: 0;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -24,48 +29,60 @@
 
 /* ====== 内容区 ====== */
 .cardBody {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  grid-template-rows: minmax(90px, 0.8fr) minmax(0, 1.45fr);
+  gap: 14px;
+  min-height: 0;
 }
 
 /* 日薪条：紧凑全宽高亮 */
 .dailyHighlight {
   width: 100%;
-  padding: 12px 16px;
-  text-align: center;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  text-align: left;
   background: linear-gradient(135deg, rgba(0, 159, 125, 0.07), rgba(104, 216, 255, 0.07));
   border: 1px solid rgba(104, 216, 255, 0.35);
   border-radius: var(--radius-md);
 }
 
 .dailyHighlight .rateLabel {
-  font-size: 0.72rem;
+  font-size: 1.15rem;
   color: var(--muted);
-  margin-bottom: 2px;
+  margin-bottom: 0;
 }
 
 .dailyHighlight .rateValue {
   font-size: 1.15rem;
   color: var(--primary-strong);
-  font-weight: 800;
+  font-weight: 700;
+  text-align: right;
 }
 
 /* ====== 四项数据网格 ====== */
 .rateGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  min-height: 0;
 }
 
 .rateItem {
   display: flex;
+  flex-direction: column;          /* 上下两行排列 */
   align-items: center;
-  justify-content: space-between;
-  padding: 9px 12px;
-  background: var(--background);
-  border-radius: var(--radius-sm);
-  border: 1px solid transparent;
+  justify-content: center;
+  min-width: 0;
+  min-height: 80px;
+  gap: 6px;
+  padding: 14px 16px;
+  background: rgba(224, 250, 241, 0.85);   /* 更明显的浅绿背景 */
+  border-radius: 12px;              /* 更圆润的边框 */
+  border: 1px solid rgba(191, 233, 217, 0.5); /* 淡淡的边框 */
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
@@ -75,18 +92,19 @@
 }
 
 .rateLabel {
-  font-size: 0.76rem;
+  font-size: 1.15rem;
   color: var(--muted);
   font-weight: 500;
   white-space: nowrap;
 }
 
 .rateValue {
-  font-size: 0.88rem;
+  font-size: 1.15rem;             /* 与标签统一大小 */
   font-weight: 700;
   color: var(--primary);
   font-variant-numeric: tabular-nums;
-  margin-left: 6px;
+  text-align: center;               /* 居中显示 */
+  white-space: nowrap;
 }
 
 /* ====== 平板及以上 ====== */
@@ -97,35 +115,54 @@
 
   .cardTitle {
     font-size: 0.92rem;
-    margin-bottom: 14px;
+    margin-bottom: 0;
   }
 
   .cardBody {
-    gap: 11px;
+    gap: 14px;
   }
 
   .dailyHighlight {
-    padding: 14px 18px;
+    padding: 16px 18px;
   }
 
   .dailyHighlight .rateValue {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
   }
 
   .rateGrid {
-    gap: 10px;
+    gap: 12px;
   }
 
   .rateItem {
-    padding: 11px 14px;
+    padding: 12px 14px;
   }
 
   .rateLabel {
-    font-size: 0.8rem;
+    font-size: 1.15rem;
   }
 
   .rateValue {
-    font-size: 0.93rem;
+    font-size: 1.15rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 779px) {
+  .cardBody {
+    grid-template-columns: minmax(220px, 0.9fr) 1.1fr;
+    grid-template-rows: none;
+    align-items: stretch;
+  }
+
+  .dailyHighlight {
+    grid-template-columns: 1fr;
+    align-content: center;
+    gap: 8px;
+  }
+
+  .dailyHighlight .rateValue {
+    text-align: left;
+    font-size: 1.15rem;
   }
 }
 
@@ -136,7 +173,7 @@
   }
 
   .cardBody {
-    gap: 13px;
+    gap: 16px;
   }
 
   .dailyHighlight {
@@ -144,23 +181,23 @@
   }
 
   .dailyHighlight .rateValue {
-    font-size: 1.35rem;
+    font-size: 1.15rem;
   }
 
   .rateGrid {
-    gap: 12px;
+    gap: 14px;
   }
 
   .rateItem {
-    padding: 12px 16px;
+    padding: 14px 18px;
   }
 
   .rateLabel {
-    font-size: 0.84rem;
+    font-size: 1.15rem;
   }
 
   .rateValue {
-    font-size: 0.98rem;
+    font-size: 1.15rem;
   }
 }
 
@@ -172,10 +209,11 @@
 
   .cardTitle {
     font-size: 0.84rem;
-    margin-bottom: 10px;
+    margin-bottom: 0;
   }
 
   .cardBody {
+    grid-template-rows: none;
     gap: 8px;
   }
 
@@ -188,19 +226,20 @@
   }
 
   .rateGrid {
+    grid-template-rows: none;
     gap: 7px;
   }
 
   .rateItem {
     padding: 8px 10px;
-    border-radius: 5px;
+    border-radius: 10px;
   }
 
   .rateLabel {
-    font-size: 0.72rem;
+    font-size: 1.05rem;
   }
 
   .rateValue {
-    font-size: 0.83rem;
+    font-size: 1.05rem;
   }
 }

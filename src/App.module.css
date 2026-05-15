@@ -1,7 +1,8 @@
 .app {
-  max-width: 720px;
+  width: 100%;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 28px 20px;
+  padding: clamp(20px, 3vw, 36px) clamp(16px, 4vw, 40px);
   min-height: 100vh;
 }
 
@@ -11,7 +12,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: min(100%, 560px);
   min-height: calc(100vh - 120px);
+  margin: 0 auto;
   padding: 20px 0;
 }
 
@@ -28,7 +31,7 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 8px;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 .headerSubtitle {
@@ -52,7 +55,7 @@
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-strong) 100%);
   box-shadow: 0 6px 20px rgba(0, 159, 125, 0.35);
   transition: all var(--transition-fast);
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
 }
 
 .startBtn:hover:not(:disabled) {
@@ -89,11 +92,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(191, 233, 217, 0.82);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(10px);
 }
 
 .workHeaderTitle {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--text);
 }
@@ -121,26 +131,20 @@
 .cardsRow {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
-  margin-bottom: 18px;
+  gap: clamp(16px, 2vw, 24px);
+  margin-bottom: 22px;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 780px) {
   .cardsRow {
-    grid-template-columns: 1fr 1fr; /* 等宽 */
-    align-items: stretch; /* 等高 */
-    gap: 20px;
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.85fr);
+    align-items: stretch;
   }
 }
 
 @media (min-width: 1024px) {
-  .app {
-    max-width: 800px;
-    padding: 32px 28px;
-  }
-
-  .cardsRow {
-    gap: 24px;
+  .workHeaderTitle {
+    font-size: 1.45rem;
   }
 
   /* 工作面板卡片：内容多时可滚动 */
@@ -148,21 +152,15 @@
     display: flex;
     flex-direction: column;
   }
-
-  /* 收入速率卡片：垂直居中分布 */
-  .rateCardWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
 }
 
 /* 工作面板卡片 */
 .workPanelCard {
+  height: 100%;
   background: var(--surface);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(191, 233, 217, 0.9);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -175,22 +173,22 @@
 .timerSection,
 .progressSection,
 .actionsSection {
-  padding: 0 22px;
-  margin-bottom: 18px !important;
+  padding: 0 clamp(18px, 2.2vw, 28px);
+  margin-bottom: 20px !important;
 }
 
 .actionsSection {
   margin-bottom: 0 !important;
-  padding-bottom: 22px;
+  padding-bottom: clamp(20px, 2.4vw, 30px);
 }
 
 .section {
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .footer {
   text-align: center;
-  padding: 24px 0;
+  padding: 22px 0 4px;
   color: var(--muted);
   font-size: 0.8rem;
 }
@@ -212,6 +210,11 @@
 
   .workHeaderTitle {
     font-size: 1.1rem;
+  }
+
+  .workHeader {
+    padding: 12px;
+    margin-bottom: 16px;
   }
 
   .timerSection,
