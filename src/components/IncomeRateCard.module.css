@@ -7,7 +7,7 @@
   height: 100%;
   background: linear-gradient(180deg, #ffffff 0%, #fbfffd 100%);
   border-radius: var(--radius-lg);
-  padding: 20px;
+  padding: 18px 20px;
   box-shadow: var(--shadow-lg);
   border: 1px solid rgba(191, 233, 217, 0.9);
 }
@@ -30,7 +30,7 @@
 /* ====== 内容区 ====== */
 .cardBody {
   display: grid;
-  grid-template-rows: minmax(90px, 0.8fr) minmax(0, 1.45fr);
+  grid-template-rows: minmax(80px, 0.8fr) minmax(0, 1.45fr);
   gap: 14px;
   min-height: 0;
 }
@@ -42,7 +42,7 @@
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
   gap: 14px;
-  padding: 16px 18px;
+  padding: 14px 16px;
   text-align: left;
   background: linear-gradient(135deg, rgba(0, 159, 125, 0.07), rgba(104, 216, 255, 0.07));
   border: 1px solid rgba(104, 216, 255, 0.35);
@@ -77,9 +77,9 @@
   align-items: center;
   justify-content: center;
   min-width: 0;
-  min-height: 80px;
+  min-height: 75px;
   gap: 6px;
-  padding: 14px 16px;
+  padding: 12px 14px;
   background: rgba(224, 250, 241, 0.85);   /* 更明显的浅绿背景 */
   border-radius: 12px;              /* 更圆润的边框 */
   border: 1px solid rgba(191, 233, 217, 0.5); /* 淡淡的边框 */

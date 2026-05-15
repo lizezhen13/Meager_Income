@@ -34,8 +34,8 @@
 .secondaryBtn {
   padding: 14px 20px;
   border-radius: var(--radius-md);
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
   color: var(--muted);
   background: var(--surface);
   border: 1px solid var(--border);

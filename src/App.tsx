@@ -82,7 +82,7 @@ const App: React.FC = () => {
         </div>
 
         <footer className={styles.footer}>
-          <p>Meager Income © {new Date().getFullYear()} · 轻财务工具</p>
+          <p>Meager Income © {new Date().getFullYear()}</p>
         </footer>
       </div>
     );

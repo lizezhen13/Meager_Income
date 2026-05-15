@@ -63,7 +63,7 @@ const AchievementList: React.FC<AchievementListProps> = ({
                   <span className={styles.progressText}>{progress.toFixed(0)}%</span>
                 )}
                 {isUnlocked && (
-                  <span className={styles.progressDone}>已完成</span>
+                  <span className={styles.progressDone}>已达成</span>
                 )}
               </div>
 
