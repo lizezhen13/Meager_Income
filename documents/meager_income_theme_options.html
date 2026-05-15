@@ -1,0 +1,924 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meager Income 风格方案对比</title>
+    <style>
+      :root {
+        color: #263238;
+        background: #fbfcff;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", "Microsoft YaHei", sans-serif;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background:
+          linear-gradient(90deg, rgba(31, 115, 183, 0.05) 1px, transparent 1px),
+          linear-gradient(rgba(31, 115, 183, 0.05) 1px, transparent 1px),
+          #fbfcff;
+        background-size: 28px 28px;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      .page {
+        width: min(1440px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 32px 0 44px;
+      }
+
+      .intro {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+
+      .intro h1 {
+        margin: 0 0 10px;
+        color: #17222b;
+        font-size: clamp(28px, 4vw, 46px);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .intro p {
+        max-width: 680px;
+        margin: 0;
+        color: #5e6f7d;
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+
+      .legend span {
+        border: 1px solid #d9e5ef;
+        border-radius: 999px;
+        background: #ffffff;
+        color: #526777;
+        padding: 8px 10px;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .scheme {
+        --bg: #ffffff;
+        --surface: #ffffff;
+        --surface-2: #f7f9fb;
+        --text: #20303c;
+        --muted: #6c7a86;
+        --border: #dfe8ee;
+        --primary: #1677ff;
+        --primary-strong: #0958d9;
+        --accent: #f8c23a;
+        --accent-2: #42c6a5;
+        --soft: #f4f8ff;
+        --chip: #edf6ff;
+        --shadow: 0 16px 36px rgba(45, 72, 92, 0.12);
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg);
+        color: var(--text);
+        box-shadow: var(--shadow);
+      }
+
+      .scheme[data-theme="lemon"] {
+        --bg: #fffdf2;
+        --surface: #ffffff;
+        --surface-2: #fff7c7;
+        --text: #26312f;
+        --muted: #6b756f;
+        --border: #f0dda4;
+        --primary: #1b88a8;
+        --primary-strong: #0c6f8c;
+        --accent: #ffd447;
+        --accent-2: #4ac7a7;
+        --soft: #fff7d6;
+        --chip: #e3f8f2;
+        --shadow: 0 16px 32px rgba(193, 151, 34, 0.16);
+      }
+
+      .scheme[data-theme="mint"] {
+        --bg: #f4fffb;
+        --surface: #ffffff;
+        --surface-2: #e5fff4;
+        --text: #173a34;
+        --muted: #5e7772;
+        --border: #bfe9d9;
+        --primary: #009f7d;
+        --primary-strong: #007f66;
+        --accent: #68d8ff;
+        --accent-2: #83d86d;
+        --soft: #eafff7;
+        --chip: #e7f7ff;
+        --shadow: 0 16px 32px rgba(0, 126, 99, 0.13);
+      }
+
+      .scheme[data-theme="peach"] {
+        --bg: #fff8f5;
+        --surface: #ffffff;
+        --surface-2: #ffe9df;
+        --text: #41271f;
+        --muted: #7f685f;
+        --border: #ffd2bf;
+        --primary: #ff6b4a;
+        --primary-strong: #dd4f31;
+        --accent: #ffbe55;
+        --accent-2: #73d6d1;
+        --soft: #fff0ea;
+        --chip: #fff5d8;
+        --shadow: 0 16px 32px rgba(214, 95, 61, 0.15);
+      }
+
+      .scheme[data-theme="sky"] {
+        --bg: #f4faff;
+        --surface: #ffffff;
+        --surface-2: #e3f2ff;
+        --text: #1e3347;
+        --muted: #607589;
+        --border: #c7def0;
+        --primary: #2d8cff;
+        --primary-strong: #116dd6;
+        --accent: #ffcf58;
+        --accent-2: #8aa7ff;
+        --soft: #edf7ff;
+        --chip: #fff7dc;
+        --shadow: 0 16px 32px rgba(39, 128, 206, 0.13);
+      }
+
+      .scheme[data-theme="lime"] {
+        --bg: #fbfff3;
+        --surface: #ffffff;
+        --surface-2: #ecffd0;
+        --text: #273419;
+        --muted: #69775e;
+        --border: #d4eaa8;
+        --primary: #58a700;
+        --primary-strong: #438000;
+        --accent: #ffcf32;
+        --accent-2: #23b3a4;
+        --soft: #f2ffd7;
+        --chip: #e6fbf7;
+        --shadow: 0 16px 32px rgba(98, 150, 27, 0.13);
+      }
+
+      .scheme[data-theme="ticket"] {
+        --bg: #fffdfa;
+        --surface: #ffffff;
+        --surface-2: #f7f2ea;
+        --text: #302d29;
+        --muted: #756e64;
+        --border: #e8dac9;
+        --primary: #3662ff;
+        --primary-strong: #2348d4;
+        --accent: #ff7b9a;
+        --accent-2: #00b894;
+        --soft: #f7fbff;
+        --chip: #fff0c5;
+        --shadow: 0 16px 32px rgba(99, 88, 72, 0.13);
+      }
+
+      .scheme-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 18px 18px 12px;
+      }
+
+      .scheme-title {
+        margin: 0;
+        color: var(--text);
+        font-size: 20px;
+        line-height: 1.2;
+        letter-spacing: 0;
+      }
+
+      .scheme-subtitle {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .copy-button {
+        flex: 0 0 auto;
+        border: 1px solid color-mix(in srgb, var(--primary), #ffffff 22%);
+        border-radius: 8px;
+        background: var(--primary);
+        color: #ffffff;
+        padding: 9px 12px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .copy-button:hover {
+        background: var(--primary-strong);
+      }
+
+      .copy-button:focus-visible {
+        outline: 3px solid color-mix(in srgb, var(--primary), #ffffff 65%);
+        outline-offset: 2px;
+      }
+
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+        padding: 0 18px 14px;
+      }
+
+      .swatch {
+        height: 26px;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 6px;
+      }
+
+      .preview {
+        margin: 0 18px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, var(--surface), var(--soft));
+        overflow: hidden;
+      }
+
+      .preview-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.66);
+        padding: 12px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 28px;
+        height: 28px;
+        place-items: center;
+        border-radius: 7px;
+        background: var(--accent);
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 900;
+      }
+
+      .status-pill {
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--chip);
+        color: var(--primary-strong);
+        padding: 6px 9px;
+        font-size: 12px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .preview-body {
+        padding: 14px;
+      }
+
+      .earning-label {
+        margin: 0 0 4px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .earning {
+        margin: 0;
+        color: var(--primary-strong);
+        font-size: clamp(30px, 4vw, 42px);
+        line-height: 1;
+        letter-spacing: 0;
+        font-weight: 900;
+      }
+
+      .progress-track {
+        width: 100%;
+        height: 12px;
+        margin: 14px 0 12px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--border), #ffffff 25%);
+      }
+
+      .progress-fill {
+        width: 38%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--primary), var(--accent-2));
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .stat {
+        min-width: 0;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.76);
+        padding: 9px 8px;
+      }
+
+      .stat b {
+        display: block;
+        color: var(--text);
+        font-size: 14px;
+        line-height: 1.2;
+      }
+
+      .stat span {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 11px;
+        white-space: nowrap;
+      }
+
+      .achievements {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .achievement {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.72);
+        padding: 9px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .achievement.is-unlocked {
+        border-color: color-mix(in srgb, var(--accent), var(--primary) 15%);
+        background: linear-gradient(135deg, var(--surface-2), #ffffff);
+        color: var(--text);
+        font-weight: 800;
+      }
+
+      .notes {
+        display: grid;
+        gap: 10px;
+        padding: 16px 18px 18px;
+      }
+
+      .notes h3 {
+        margin: 0;
+        color: var(--text);
+        font-size: 14px;
+        letter-spacing: 0;
+      }
+
+      .notes p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.65;
+      }
+
+      .toast {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 10;
+        transform: translateY(16px);
+        border: 1px solid #cfe0ec;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #20303c;
+        box-shadow: 0 14px 30px rgba(35, 56, 74, 0.16);
+        opacity: 0;
+        padding: 12px 14px;
+        pointer-events: none;
+        transition: opacity 180ms ease, transform 180ms ease;
+        font-size: 14px;
+      }
+
+      .toast.is-visible {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      @media (max-width: 1120px) {
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        .page {
+          width: min(100% - 24px, 560px);
+          padding-top: 22px;
+        }
+
+        .intro {
+          display: block;
+        }
+
+        .legend {
+          justify-content: flex-start;
+          margin-top: 16px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .scheme-header {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .copy-button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <h1 id="page-title">Meager Income 风格方案对比</h1>
+          <p>
+            6 个方向都保持明亮轻快，但在情绪、信息密度和趣味程度上拉开差异。点击任意“复制方案”按钮，会复制该方案的设计说明、色彩令牌和适用取舍，方便粘贴进 PRD 或交给 AI 开发。
+          </p>
+        </div>
+        <div class="legend" aria-label="设计约束">
+          <span>明亮背景</span>
+          <span>轻量趣味</span>
+          <span>移动端友好</span>
+          <span>React + Vite + TS</span>
+        </div>
+      </section>
+
+      <section class="grid" aria-label="风格方案列表">
+        <article class="scheme" data-theme="lemon">
+          <div class="scheme-header">
+            <div>
+              <h2 class="scheme-title">方案 A：柠檬打卡</h2>
+              <p class="scheme-subtitle">清爽黄 + 湖蓝，像轻量任务打卡工具。</p>
+            </div>
+            <button class="copy-button" type="button" data-copy="lemon">复制方案</button>
+          </div>
+          <div class="swatches" aria-label="柠檬打卡色板">
+            <span class="swatch" style="background:#fffdf2"></span>
+            <span class="swatch" style="background:#ffd447"></span>
+            <span class="swatch" style="background:#1b88a8"></span>
+            <span class="swatch" style="background:#4ac7a7"></span>
+            <span class="swatch" style="background:#26312f"></span>
+          </div>
+          <div class="preview">
+            <div class="preview-top">
+              <div class="brand"><span class="brand-mark">¥</span> 实时打工</div>
+              <span class="status-pill">工作中</span>
+            </div>
+            <div class="preview-body">
+              <p class="earning-label">当前已赚</p>
+              <p class="earning">¥ 48.26</p>
+              <div class="progress-track"><div class="progress-fill"></div></div>
+              <div class="stats">
+                <div class="stat"><b>¥0.0112</b><span>每秒</span></div>
+                <div class="stat"><b>01:11:49</b><span>已工作</span></div>
+                <div class="stat"><b>14.9%</b><span>进度</span></div>
+              </div>
+              <div class="achievements">
+                <div class="achievement is-unlocked">解锁一杯奶茶</div>
+                <div class="achievement">电影票进度</div>
+              </div>
+            </div>
+          </div>
+          <div class="notes">
+            <h3>取舍</h3>
+            <p>优点是轻快、积极，金额增长的反馈感强；缺点是黄色面积过大时会偏活泼，适合趣味属性明显的版本。</p>
+          </div>
+        </article>
+
+        <article class="scheme" data-theme="mint">
+          <div class="scheme-header">
+            <div>
+              <h2 class="scheme-title">方案 B：薄荷收银台</h2>
+              <p class="scheme-subtitle">薄荷绿 + 水蓝，偏干净的轻财务工具。</p>
+            </div>
+            <button class="copy-button" type="button" data-copy="mint">复制方案</button>
+          </div>
+          <div class="swatches" aria-label="薄荷收银台色板">
+            <span class="swatch" style="background:#f4fffb"></span>
+            <span class="swatch" style="background:#009f7d"></span>
+            <span class="swatch" style="background:#68d8ff"></span>
+            <span class="swatch" style="background:#83d86d"></span>
+            <span class="swatch" style="background:#173a34"></span>
+          </div>
+          <div class="preview">
+            <div class="preview-top">
+              <div class="brand"><span class="brand-mark">¥</span> 工资仪表盘</div>
+              <span class="status-pill">收益稳定</span>
+            </div>
+            <div class="preview-body">
+              <p class="earning-label">当前已赚</p>
+              <p class="earning">¥ 48.26</p>
+              <div class="progress-track"><div class="progress-fill"></div></div>
+              <div class="stats">
+                <div class="stat"><b>¥0.0112</b><span>每秒</span></div>
+                <div class="stat"><b>01:11:49</b><span>已工作</span></div>
+                <div class="stat"><b>14.9%</b><span>进度</span></div>
+              </div>
+              <div class="achievements">
+                <div class="achievement is-unlocked">早餐钱到账</div>
+                <div class="achievement">大餐基金</div>
+              </div>
+            </div>
+          </div>
+          <div class="notes">
+            <h3>取舍</h3>
+            <p>优点是可信、干净，适合长期使用；缺点是趣味感弱于其他方案，需要靠文案和微动效补充轻松感。</p>
+          </div>
+        </article>
+
+        <article class="scheme" data-theme="peach">
+          <div class="scheme-header">
+            <div>
+              <h2 class="scheme-title">方案 C：桃子汽水</h2>
+              <p class="scheme-subtitle">珊瑚橙 + 奶油白，像生活方式小工具。</p>
+            </div>
+            <button class="copy-button" type="button" data-copy="peach">复制方案</button>
+          </div>
+          <div class="swatches" aria-label="桃子汽水色板">
+            <span class="swatch" style="background:#fff8f5"></span>
+            <span class="swatch" style="background:#ff6b4a"></span>
+            <span class="swatch" style="background:#ffbe55"></span>
+            <span class="swatch" style="background:#73d6d1"></span>
+            <span class="swatch" style="background:#41271f"></span>
+          </div>
+          <div class="preview">
+            <div class="preview-top">
+              <div class="brand"><span class="brand-mark">¥</span> 今日回血</div>
+              <span class="status-pill">奶茶进度</span>
+            </div>
+            <div class="preview-body">
+              <p class="earning-label">当前已赚</p>
+              <p class="earning">¥ 48.26</p>
+              <div class="progress-track"><div class="progress-fill"></div></div>
+              <div class="stats">
+                <div class="stat"><b>¥0.0112</b><span>每秒</span></div>
+                <div class="stat"><b>01:11:49</b><span>已工作</span></div>
+                <div class="stat"><b>14.9%</b><span>进度</span></div>
+              </div>
+              <div class="achievements">
+                <div class="achievement is-unlocked">午饭基金启动</div>
+                <div class="achievement">小购物自由</div>
+              </div>
+            </div>
+          </div>
+          <div class="notes">
+            <h3>取舍</h3>
+            <p>优点是亲和、社交分享感强，适合偏娱乐表达；缺点是财务工具感较弱，需控制文案避免太像营销页。</p>
+          </div>
+        </article>
+
+        <article class="scheme" data-theme="sky">
+          <div class="scheme-header">
+            <div>
+              <h2 class="scheme-title">方案 D：天空便签</h2>
+              <p class="scheme-subtitle">天空蓝 + 便签黄，像轻量效率面板。</p>
+            </div>
+            <button class="copy-button" type="button" data-copy="sky">复制方案</button>
+          </div>
+          <div class="swatches" aria-label="天空便签色板">
+            <span class="swatch" style="background:#f4faff"></span>
+            <span class="swatch" style="background:#2d8cff"></span>
+            <span class="swatch" style="background:#ffcf58"></span>
+            <span class="swatch" style="background:#8aa7ff"></span>
+            <span class="swatch" style="background:#1e3347"></span>
+          </div>
+          <div class="preview">
+            <div class="preview-top">
+              <div class="brand"><span class="brand-mark">¥</span> 打工便签</div>
+              <span class="status-pill">今日 14.9%</span>
+            </div>
+            <div class="preview-body">
+              <p class="earning-label">当前已赚</p>
+              <p class="earning">¥ 48.26</p>
+              <div class="progress-track"><div class="progress-fill"></div></div>
+              <div class="stats">
+                <div class="stat"><b>¥0.0112</b><span>每秒</span></div>
+                <div class="stat"><b>01:11:49</b><span>已工作</span></div>
+                <div class="stat"><b>14.9%</b><span>进度</span></div>
+              </div>
+              <div class="achievements">
+                <div class="achievement is-unlocked">公交车票到账</div>
+                <div class="achievement">半日打工人</div>
+              </div>
+            </div>
+          </div>
+          <div class="notes">
+            <h3>取舍</h3>
+            <p>优点是清晰、稳定，数字可读性最好；缺点是差异化不强，需要通过插画式成就图标提升记忆点。</p>
+          </div>
+        </article>
+
+        <article class="scheme" data-theme="lime">
+          <div class="scheme-header">
+            <div>
+              <h2 class="scheme-title">方案 E：青柠冲刺</h2>
+              <p class="scheme-subtitle">青柠绿 + 琥珀黄，偏进度条和成就感。</p>
+            </div>
+            <button class="copy-button" type="button" data-copy="lime">复制方案</button>
+          </div>
+          <div class="swatches" aria-label="青柠冲刺色板">
+            <span class="swatch" style="background:#fbfff3"></span>
+            <span class="swatch" style="background:#58a700"></span>
+            <span class="swatch" style="background:#ffcf32"></span>
+            <span class="swatch" style="background:#23b3a4"></span>
+            <span class="swatch" style="background:#273419"></span>
+          </div>
+          <div class="preview">
+            <div class="preview-top">
+              <div class="brand"><span class="brand-mark">¥</span> 打工冲刺</div>
+              <span class="status-pill">连赚中</span>
+            </div>
+            <div class="preview-body">
+              <p class="earning-label">当前已赚</p>
+              <p class="earning">¥ 48.26</p>
+              <div class="progress-track"><div class="progress-fill"></div></div>
+              <div class="stats">
+                <div class="stat"><b>¥0.0112</b><span>每秒</span></div>
+                <div class="stat"><b>01:11:49</b><span>已工作</span></div>
+                <div class="stat"><b>14.9%</b><span>进度</span></div>
+              </div>
+              <div class="achievements">
+                <div class="achievement is-unlocked">摸到四分之一</div>
+                <div class="achievement">快要收工了</div>
+              </div>
+            </div>
+          </div>
+          <div class="notes">
+            <h3>取舍</h3>
+            <p>优点是行动感强，适合强化“开始打工”和进度推进；缺点是绿色容易显得功能性强，需保持留白避免紧张。</p>
+          </div>
+        </article>
+
+        <article class="scheme" data-theme="ticket">
+          <div class="scheme-header">
+            <div>
+              <h2 class="scheme-title">方案 F：彩色票据</h2>
+              <p class="scheme-subtitle">票据白 + 多彩点缀，像收据和奖励清单。</p>
+            </div>
+            <button class="copy-button" type="button" data-copy="ticket">复制方案</button>
+          </div>
+          <div class="swatches" aria-label="彩色票据色板">
+            <span class="swatch" style="background:#fffdfa"></span>
+            <span class="swatch" style="background:#3662ff"></span>
+            <span class="swatch" style="background:#ff7b9a"></span>
+            <span class="swatch" style="background:#00b894"></span>
+            <span class="swatch" style="background:#302d29"></span>
+          </div>
+          <div class="preview">
+            <div class="preview-top">
+              <div class="brand"><span class="brand-mark">¥</span> 收入小票</div>
+              <span class="status-pill">已解锁 3 个</span>
+            </div>
+            <div class="preview-body">
+              <p class="earning-label">当前已赚</p>
+              <p class="earning">¥ 48.26</p>
+              <div class="progress-track"><div class="progress-fill"></div></div>
+              <div class="stats">
+                <div class="stat"><b>¥0.0112</b><span>每秒</span></div>
+                <div class="stat"><b>01:11:49</b><span>已工作</span></div>
+                <div class="stat"><b>14.9%</b><span>进度</span></div>
+              </div>
+              <div class="achievements">
+                <div class="achievement is-unlocked">电影票进度达成</div>
+                <div class="achievement">今日工资到账</div>
+              </div>
+            </div>
+          </div>
+          <div class="notes">
+            <h3>取舍</h3>
+            <p>优点是最贴合“收入清单”和成就收集，扩展性强；缺点是颜色较多，实现时要统一令牌，避免界面显乱。</p>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <div class="toast" role="status" aria-live="polite">方案已复制</div>
+
+    <script>
+      const schemes = {
+        lemon: {
+          name: "方案 A：柠檬打卡",
+          direction: "明亮黄 + 湖蓝，轻快的任务打卡工具感。",
+          tokens: {
+            background: "#fffdf2",
+            surface: "#ffffff",
+            primary: "#1b88a8",
+            primaryStrong: "#0c6f8c",
+            accent: "#ffd447",
+            accent2: "#4ac7a7",
+            text: "#26312f",
+            muted: "#6b756f",
+            border: "#f0dda4"
+          },
+          tradeoff:
+            "优点是轻快、积极，金额增长反馈感强；缺点是黄色面积过大时会偏活泼，适合趣味属性明显的版本。"
+        },
+        mint: {
+          name: "方案 B：薄荷收银台",
+          direction: "薄荷绿 + 水蓝，干净可信的轻财务工具感。",
+          tokens: {
+            background: "#f4fffb",
+            surface: "#ffffff",
+            primary: "#009f7d",
+            primaryStrong: "#007f66",
+            accent: "#68d8ff",
+            accent2: "#83d86d",
+            text: "#173a34",
+            muted: "#5e7772",
+            border: "#bfe9d9"
+          },
+          tradeoff:
+            "优点是可信、干净，适合长期使用；缺点是趣味感弱于其他方案，需要靠文案和微动效补充轻松感。"
+        },
+        peach: {
+          name: "方案 C：桃子汽水",
+          direction: "珊瑚橙 + 奶油白，偏生活方式和分享感。",
+          tokens: {
+            background: "#fff8f5",
+            surface: "#ffffff",
+            primary: "#ff6b4a",
+            primaryStrong: "#dd4f31",
+            accent: "#ffbe55",
+            accent2: "#73d6d1",
+            text: "#41271f",
+            muted: "#7f685f",
+            border: "#ffd2bf"
+          },
+          tradeoff:
+            "优点是亲和、社交分享感强，适合偏娱乐表达；缺点是财务工具感较弱，需控制文案避免太像营销页。"
+        },
+        sky: {
+          name: "方案 D：天空便签",
+          direction: "天空蓝 + 便签黄，轻量效率面板感。",
+          tokens: {
+            background: "#f4faff",
+            surface: "#ffffff",
+            primary: "#2d8cff",
+            primaryStrong: "#116dd6",
+            accent: "#ffcf58",
+            accent2: "#8aa7ff",
+            text: "#1e3347",
+            muted: "#607589",
+            border: "#c7def0"
+          },
+          tradeoff:
+            "优点是清晰、稳定，数字可读性最好；缺点是差异化不强，需要通过插画式成就图标提升记忆点。"
+        },
+        lime: {
+          name: "方案 E：青柠冲刺",
+          direction: "青柠绿 + 琥珀黄，强化进度推进和成就感。",
+          tokens: {
+            background: "#fbfff3",
+            surface: "#ffffff",
+            primary: "#58a700",
+            primaryStrong: "#438000",
+            accent: "#ffcf32",
+            accent2: "#23b3a4",
+            text: "#273419",
+            muted: "#69775e",
+            border: "#d4eaa8"
+          },
+          tradeoff:
+            "优点是行动感强，适合强化“开始打工”和进度推进；缺点是绿色容易显得功能性强，需保持留白避免紧张。"
+        },
+        ticket: {
+          name: "方案 F：彩色票据",
+          direction: "票据白 + 多彩点缀，像收入小票和奖励清单。",
+          tokens: {
+            background: "#fffdfa",
+            surface: "#ffffff",
+            primary: "#3662ff",
+            primaryStrong: "#2348d4",
+            accent: "#ff7b9a",
+            accent2: "#00b894",
+            text: "#302d29",
+            muted: "#756e64",
+            border: "#e8dac9"
+          },
+          tradeoff:
+            "优点是最贴合“收入清单”和成就收集，扩展性强；缺点是颜色较多，实现时要统一令牌，避免界面显乱。"
+        }
+      };
+
+      const toast = document.querySelector(".toast");
+      let toastTimer = 0;
+
+      function toCopyText(scheme) {
+        return [
+          scheme.name,
+          "",
+          `风格方向：${scheme.direction}`,
+          "",
+          "色彩令牌：",
+          JSON.stringify(scheme.tokens, null, 2),
+          "",
+          `取舍：${scheme.tradeoff}`,
+          "",
+          "实施建议：用于 Meager Income 的 React + Vite + TypeScript 版本；保持明亮背景、8px 内圆角、清晰数字层级，成就卡片用 accent 色高亮。"
+        ].join("\n");
+      }
+
+      function fallbackCopy(text) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+
+      function showToast(message) {
+        window.clearTimeout(toastTimer);
+        toast.textContent = message;
+        toast.classList.add("is-visible");
+        toastTimer = window.setTimeout(() => {
+          toast.classList.remove("is-visible");
+        }, 1600);
+      }
+
+      async function copyScheme(key) {
+        const scheme = schemes[key];
+        if (!scheme) return;
+        const text = toCopyText(scheme);
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            fallbackCopy(text);
+          }
+          showToast(`${scheme.name} 已复制`);
+        } catch (error) {
+          fallbackCopy(text);
+          showToast(`${scheme.name} 已复制`);
+        }
+      }
+
+      document.querySelectorAll("[data-copy]").forEach((button) => {
+        button.addEventListener("click", () => {
+          copyScheme(button.dataset.copy);
+        });
+      });
+    </script>
+  </body>
+</html>

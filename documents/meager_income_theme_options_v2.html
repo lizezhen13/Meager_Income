@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meager Income 风格方案对比 V2</title>
+    <style>
+      :root {
+        color: #272c32;
+        background: #fffdf9;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", "Microsoft YaHei", sans-serif;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background:
+          radial-gradient(circle at 10% 8%, rgba(255, 207, 219, 0.28), transparent 24%),
+          radial-gradient(circle at 92% 12%, rgba(174, 226, 255, 0.24), transparent 26%),
+          linear-gradient(180deg, #fffdf9 0%, #f7fbff 100%);
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .page {
+        width: min(1480px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 34px 0 48px;
+      }
+
+      .intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 24px;
+        align-items: end;
+        margin-bottom: 24px;
+      }
+
+      .intro h1 {
+        margin: 0 0 10px;
+        color: #1f252c;
+        font-size: clamp(30px, 4vw, 50px);
+        line-height: 1.04;
+        letter-spacing: 0;
+      }
+
+      .intro p {
+        max-width: 780px;
+        margin: 0;
+        color: #626d78;
+        font-size: 15px;
+        line-height: 1.75;
+      }
+
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 8px;
+        max-width: 420px;
+      }
+
+      .tag-list span {
+        border: 1px solid #e1e7ee;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.78);
+        color: #586671;
+        padding: 8px 11px;
+        font-size: 13px;
+        white-space: nowrap;
+        backdrop-filter: blur(10px);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .scheme {
+        --bg: #ffffff;
+        --paper: #ffffff;
+        --paper-2: #f7f8fb;
+        --text: #252b32;
+        --muted: #6b7480;
+        --line: #dfe5eb;
+        --primary: #3279ff;
+        --primary-2: #165fd7;
+        --accent: #ffcf55;
+        --accent-2: #65d7bc;
+        --shadow: 0 18px 34px rgba(42, 57, 72, 0.13);
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--bg);
+        color: var(--text);
+        box-shadow: var(--shadow);
+      }
+
+      .scheme[data-theme="macaron"] {
+        --bg: #fff8fb;
+        --paper: #ffffff;
+        --paper-2: #fff1f7;
+        --text: #3d3440;
+        --muted: #7a6e78;
+        --line: #f0d9e6;
+        --primary: #f47cab;
+        --primary-2: #d9578b;
+        --accent: #b8eadf;
+        --accent-2: #ffe08a;
+        --shadow: 0 18px 34px rgba(197, 101, 142, 0.14);
+      }
+
+      .scheme[data-theme="retro"] {
+        --bg: #fff7e6;
+        --paper: #fffdf4;
+        --paper-2: #ffe8b7;
+        --text: #3d2d20;
+        --muted: #766453;
+        --line: #e8c88d;
+        --primary: #e85f3a;
+        --primary-2: #ba4426;
+        --accent: #36a7a0;
+        --accent-2: #f6c45f;
+        --shadow: 0 18px 34px rgba(145, 91, 35, 0.16);
+      }
+
+      .scheme[data-theme="gallery"] {
+        --bg: #fbfaf7;
+        --paper: #ffffff;
+        --paper-2: #f2efe8;
+        --text: #242322;
+        --muted: #716f6a;
+        --line: #ded8cc;
+        --primary: #1d5f8f;
+        --primary-2: #13486c;
+        --accent: #e9b949;
+        --accent-2: #d95d39;
+        --shadow: 0 18px 34px rgba(69, 63, 52, 0.12);
+      }
+
+      .scheme[data-theme="aurora"] {
+        --bg: #f7fcff;
+        --paper: rgba(255, 255, 255, 0.82);
+        --paper-2: rgba(220, 248, 255, 0.9);
+        --text: #223044;
+        --muted: #647286;
+        --line: #cae0eb;
+        --primary: #6d7cff;
+        --primary-2: #4d5ed9;
+        --accent: #77ead9;
+        --accent-2: #ffc36a;
+        --shadow: 0 18px 34px rgba(80, 116, 155, 0.16);
+      }
+
+      .scheme[data-theme="citypop"] {
+        --bg: #fff4ee;
+        --paper: #ffffff;
+        --paper-2: #ffe7f0;
+        --text: #30283c;
+        --muted: #756b80;
+        --line: #ecd2df;
+        --primary: #ff5c8a;
+        --primary-2: #cf3f6a;
+        --accent: #27b8d8;
+        --accent-2: #ffd15c;
+        --shadow: 0 18px 34px rgba(185, 76, 112, 0.15);
+      }
+
+      .scheme[data-theme="riso"] {
+        --bg: #fffceb;
+        --paper: #fffdf4;
+        --paper-2: #f5f0cf;
+        --text: #273331;
+        --muted: #65736f;
+        --line: #dfd7a9;
+        --primary: #2d9c8f;
+        --primary-2: #1d766c;
+        --accent: #ff6b5b;
+        --accent-2: #7fc45d;
+        --shadow: 0 18px 34px rgba(111, 120, 62, 0.13);
+      }
+
+      .scheme[data-theme="pixel"] {
+        --bg: #f5fbff;
+        --paper: #ffffff;
+        --paper-2: #e8f4ff;
+        --text: #16202d;
+        --muted: #657485;
+        --line: #c8d9ea;
+        --primary: #2176ff;
+        --primary-2: #1456bd;
+        --accent: #ffcd38;
+        --accent-2: #ff7a59;
+        --shadow: 0 12px 0 rgba(33, 118, 255, 0.16);
+      }
+
+      .scheme[data-theme="candy"] {
+        --bg: #fff9fd;
+        --paper: #ffffff;
+        --paper-2: #f3ecff;
+        --text: #342a43;
+        --muted: #746981;
+        --line: #e2d4f2;
+        --primary: #8f65ff;
+        --primary-2: #6d45d7;
+        --accent: #5ce1d8;
+        --accent-2: #ffca5a;
+        --shadow: 0 18px 34px rgba(125, 93, 188, 0.14);
+      }
+
+      .scheme-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 18px 18px 12px;
+      }
+
+      .scheme h2 {
+        margin: 0;
+        color: var(--text);
+        font-size: 19px;
+        line-height: 1.22;
+        letter-spacing: 0;
+      }
+
+      .scheme-subtitle {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .copy-button {
+        flex: 0 0 auto;
+        border: 1px solid color-mix(in srgb, var(--primary), #ffffff 18%);
+        border-radius: 8px;
+        background: var(--primary);
+        color: #ffffff;
+        padding: 9px 12px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .copy-button:hover {
+        background: var(--primary-2);
+      }
+
+      .copy-button:focus-visible {
+        outline: 3px solid color-mix(in srgb, var(--primary), #ffffff 64%);
+        outline-offset: 2px;
+      }
+
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+        padding: 0 18px 14px;
+      }
+
+      .swatch {
+        height: 25px;
+        border: 1px solid rgba(0, 0, 0, 0.07);
+        border-radius: 6px;
+      }
+
+      .mock {
+        margin: 0 18px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, var(--paper), var(--paper-2));
+      }
+
+      .mock-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        border-bottom: 1px solid var(--line);
+        background: color-mix(in srgb, var(--paper), #ffffff 42%);
+        padding: 12px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        min-width: 0;
+        gap: 8px;
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      .mark {
+        display: grid;
+        width: 28px;
+        height: 28px;
+        flex: 0 0 auto;
+        place-items: center;
+        border-radius: 7px;
+        background: var(--accent);
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 950;
+      }
+
+      .pill {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--accent), #ffffff 72%);
+        color: var(--primary-2);
+        padding: 6px 9px;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .mock-body {
+        padding: 14px;
+      }
+
+      .kicker {
+        margin: 0 0 5px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .money {
+        margin: 0;
+        color: var(--primary-2);
+        font-size: clamp(30px, 4vw, 42px);
+        line-height: 1;
+        letter-spacing: 0;
+        font-weight: 950;
+      }
+
+      .meter {
+        width: 100%;
+        height: 12px;
+        margin: 14px 0 12px;
+        overflow: hidden;
+        border: 1px solid color-mix(in srgb, var(--line), #ffffff 35%);
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--line), #ffffff 45%);
+      }
+
+      .meter span {
+        display: block;
+        width: 41%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--primary), var(--accent-2));
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .metric {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: color-mix(in srgb, var(--paper), #ffffff 54%);
+        padding: 9px 8px;
+      }
+
+      .metric b {
+        display: block;
+        color: var(--text);
+        font-size: 13px;
+        line-height: 1.2;
+      }
+
+      .metric span {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 11px;
+        white-space: nowrap;
+      }
+
+      .badges {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .badge {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: color-mix(in srgb, var(--paper), #ffffff 44%);
+        color: var(--muted);
+        padding: 9px;
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .badge.is-on {
+        border-color: color-mix(in srgb, var(--accent), var(--primary) 18%);
+        background:
+          linear-gradient(135deg, color-mix(in srgb, var(--accent), #ffffff 64%), var(--paper));
+        color: var(--text);
+        font-weight: 900;
+      }
+
+      .notes {
+        display: grid;
+        gap: 10px;
+        padding: 16px 18px 18px;
+      }
+
+      .notes h3 {
+        margin: 0;
+        color: var(--text);
+        font-size: 14px;
+        letter-spacing: 0;
+      }
+
+      .notes p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.65;
+      }
+
+      .toast {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 20;
+        transform: translateY(16px);
+        border: 1px solid #dce5ef;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #222a31;
+        box-shadow: 0 16px 32px rgba(42, 57, 72, 0.16);
+        opacity: 0;
+        padding: 12px 14px;
+        pointer-events: none;
+        transition: opacity 180ms ease, transform 180ms ease;
+        font-size: 14px;
+      }
+
+      .toast.is-visible {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      @media (max-width: 1320px) {
+        .grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 980px) {
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        .page {
+          width: min(100% - 24px, 560px);
+          padding-top: 24px;
+        }
+
+        .intro {
+          display: block;
+        }
+
+        .tag-list {
+          justify-content: flex-start;
+          margin-top: 16px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .scheme-head {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .copy-button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="intro" aria-labelledby="title">
+        <div>
+          <h1 id="title">Meager Income 风格方案对比 V2</h1>
+          <p>
+            这版不再只围绕“清爽工具感”，而是把实时工资可视化当成一个有趣的小物件来设计。每个方向都保留金额、进度、成就解锁这些核心界面，方便直接判断是否适合后续 React + Vite + TypeScript 实现。
+          </p>
+        </div>
+        <div class="tag-list" aria-label="风格关键词">
+          <span>马卡龙</span>
+          <span>怀旧感</span>
+          <span>艺术感</span>
+          <span>氛围感</span>
+          <span>像素趣味</span>
+        </div>
+      </section>
+
+      <section class="grid" aria-label="主题方案网格">
+        <article class="scheme" data-theme="macaron">
+          <div class="scheme-head">
+            <div>
+              <h2>方案 A：马卡龙甜账本</h2>
+              <p class="scheme-subtitle">粉、薄荷、奶油黄，轻甜但不幼稚。</p>
+            </div>
+            <button class="copy-button" type="button" data-copy="macaron">复制方案</button>
+          </div>
+          <div class="swatches">
+            <span class="swatch" style="background:#fff8fb"></span>
+            <span class="swatch" style="background:#f47cab"></span>
+            <span class="swatch" style="background:#b8eadf"></span>
+            <span class="swatch" style="background:#ffe08a"></span>
+            <span class="swatch" style="background:#3d3440"></span>
+          </div>
+          <div class="mock">
+            <div class="mock-top">
+              <div class="brand"><span class="mark">¥</span> 甜账本</div>
+              <span class="pill">奶茶进度</span>
+            </div>
+            <div class="mock-body">
+              <p class="kicker">当前已赚</p>
+              <p class="money">¥ 48.26</p>
+              <div class="meter"><span></span></div>
+              <div class="metrics">
+                <div class="metric"><b>¥0.0112</b><span>每秒</span></div>
+                <div class="metric"><b>01:11:49</b><span>已工作</span></div>
+                <div class="metric"><b>14.9%</b><span>进度</span></div>
+              </div>
+              <div class="badges">
+                <div class="badge is-on">解锁一杯奶茶</div>
+                <div class="badge">小购物自由</div>
+              </div>
+            </div>
+          </div>
+          <div class="notes">
+            <h3>取舍</h3>
+            <p>优点是亲和、可爱、适合分享截图；缺点是需要控制圆角和糖果色面积，否则容易偏儿童化。</p>
+          </div>
+        </article>
+
+        <article class="scheme" data-theme="retro">
+          <div class="scheme-head">
+            <div>
+              <h2>方案 B：复古汽水小票</h2>
+              <p class="scheme-subtitle">暖纸色、橘红、青绿，带一点旧商店感。</p>
+            </div>
+            <button class="copy-button" type="button" data-copy="retro">复制方案</button>
+          </div>
+          <div class="swatches">
+            <span class="swatch" style="background:#fff7e6"></span>
+            <span class="swatch" style="background:#e85f3a"></span>
+            <span class="swatch" style="background:#36a7a0"></span>
+            <span class="swatch" style="background:#f6c45f"></span>
+            <span class="swatch" style="background:#3d2d20"></span>
+          </div>
+          <div class="mock">
+            <div class="mock-top">
+              <div class="brand"><span class="mark">¥</span> 收入小票</div>
+              <span class="pill">已出票</span>
+            </div>
+            <div class="mock-body">
+              <p class="kicker">当前已赚</p>
+              <p class="money">¥ 48.26</p>
+              <div class="meter"><span></span></div>
+              <div class="metrics">
+                <div class="metric"><b>¥0.0112</b><span>每秒</span></div>
+                <div class="metric"><b>01:11:49</b><span>已工作</span></div>
+                <div class="metric"><b>14.9%</b><span>进度</span></div>
+              </div>
+              <div class="badges">
+                <div class="badge is-on">早餐钱到账</div>
+                <div class="badge">电影票进度</div>
+              </div>
+            </div>
+          </div>
+          <div class="notes">
+            <h3>取舍</h3>
+            <p>优点是记忆点强，成就像一张张消费小票；缺点是怀旧色容易变脏，实现时要保留足够白底。</p>
+          </div>
+        </article>
+
+        <article class="scheme" data-theme="gallery">
+          <div class="scheme-head">
+            <div>
+              <h2>方案 C：艺术馆展签</h2>
+              <p class="scheme-subtitle">留白、展签、低饱和点缀，偏高级克制。</p>
+            </div>
+            <button class="copy-button" type="button" data-copy="gallery">复制方案</button>
+          </div>
+          <div class="swatches">
+            <span class="swatch" style="background:#fbfaf7"></span>
+            <span class="swatch" style="background:#1d5f8f"></span>
+            <span class="swatch" style="background:#e9b949"></span>
+            <span class="swatch" style="background:#d95d39"></span>
+            <span class="swatch" style="background:#242322"></span>
+          </div>
+          <div class="mock">
+            <div class="mock-top">
+              <div class="brand"><span class="mark">¥</span> 今日展签</div>
+              <span class="pill">第 4 件</span>
+            </div>
+            <div class="mock-body">
+              <p class="kicker">当前已赚</p>
+              <p class="money">¥ 48.26</p>
+              <div class="meter"><span></span></div>
+              <div class="metrics">
+                <div class="metric"><b>¥0.0112</b><span>每秒</span></div>
+                <div class="metric"><b>01:11:49</b><span>已工作</span></div>
+                <div class="metric"><b>14.9%</b><span>进度</span></div>
+              </div>
+              <div class="badges">
+                <div class="badge is-on">午饭基金启动</div>
+                <div class="badge">今日工资到账</div>
+              </div>
+            </div>
+          </div>
+          <div class="notes">
+            <h3>取舍</h3>
+            <p>优点是耐看、有审美辨识度，适合想做得更精致；缺点是趣味表达更隐性，需要成就文案承担轻松感。</p>
+          </div>
+        </article>
+
+        <article class="scheme" data-theme="aurora">
+          <div class="scheme-head">
+            <div>
+              <h2>方案 D：玻璃晨光</h2>
+              <p class="scheme-subtitle">浅蓝玻璃、柔和高光，偏氛围感。</p>
+            </div>
+            <button class="copy-button" type="button" data-copy="aurora">复制方案</button>
+          </div>
+          <div class="swatches">
+            <span class="swatch" style="background:#f7fcff"></span>
+            <span class="swatch" style="background:#6d7cff"></span>
+            <span class="swatch" style="background:#77ead9"></span>
+            <span class="swatch" style="background:#ffc36a"></span>
+            <span class="swatch" style="background:#223044"></span>
+          </div>
+          <div class="mock">
+            <div class="mock-top">
+              <div class="brand"><span class="mark">¥</span> 晨光计时</div>
+              <span class="pill">工作中</span>
+            </div>
+            <div class="mock-body">
+              <p class="kicker">当前已赚</p>
+              <p class="money">¥ 48.26</p>
+              <div class="meter"><span></span></div>
+              <div class="metrics">
+                <div class="metric"><b>¥0.0112</b><span>每秒</span></div>
+                <div class="metric"><b>01:11:49</b><span>已工作</span></div>
+                <div class="metric"><b>14.9%</b><span>进度</span></div>
+              </div>
+              <div class="badges">
+                <div class="badge is-on">公交车票到账</div>
+                <div class="badge">半日打工人</div>
+              </div>
+            </div>
+          </div>
+          <div class="notes">
+            <h3>取舍</h3>
+            <p>优点是柔和、有现代感，适合做精致动效；缺点是玻璃效果要注意对比度，避免数字被背景干扰。</p>
+          </div>
+        </article>
+
+        <article class="scheme" data-theme="citypop">
+          <div class="scheme-head">
+            <div>
+              <h2>方案 E：City Pop 下班前</h2>
+              <p class="scheme-subtitle">粉橙、青蓝、亮黄，带一点复古流行感。</p>
+            </div>
+            <button class="copy-button" type="button" data-copy="citypop">复制方案</button>
+          </div>
+          <div class="swatches">
+            <span class="swatch" style="background:#fff4ee"></span>
+            <span class="swatch" style="background:#ff5c8a"></span>
+            <span class="swatch" style="background:#27b8d8"></span>
+            <span class="swatch" style="background:#ffd15c"></span>
+            <span class="swatch" style="background:#30283c"></span>
+          </div>
+          <div class="mock">
+            <div class="mock-top">
+              <div class="brand"><span class="mark">¥</span> 下班前</div>
+              <span class="pill">快要收工</span>
+            </div>
+            <div class="mock-body">
+              <p class="kicker">当前已赚</p>
+              <p class="money">¥ 48.26</p>
+              <div class="meter"><span></span></div>
+              <div class="metrics">
+                <div class="metric"><b>¥0.0112</b><span>每秒</span></div>
+                <div class="metric"><b>01:11:49</b><span>已工作</span></div>
+                <div class="metric"><b>14.9%</b><span>进度</span></div>
+              </div>
+              <div class="badges">
+                <div class="badge is-on">摸到四分之一</div>
+                <div class="badge">大餐基金到账</div>
+              </div>
+            </div>
+          </div>
+          <div class="notes">
+            <h3>取舍</h3>
+            <p>优点是情绪强、适合年轻化表达；缺点是颜色张力大，需要限制同屏强调元素数量。</p>
+          </div>
+        </article>
+
+        <article class="scheme" data-theme="riso">
+          <div class="scheme-head">
+            <div>
+              <h2>方案 F：Riso 便签本</h2>
+              <p class="scheme-subtitle">纸张黄、孔版印刷色，手作感更明显。</p>
+            </div>
+            <button class="copy-button" type="button" data-copy="riso">复制方案</button>
+          </div>
+          <div class="swatches">
+            <span class="swatch" style="background:#fffceb"></span>
+            <span class="swatch" style="background:#2d9c8f"></span>
+            <span class="swatch" style="background:#ff6b5b"></span>
+            <span class="swatch" style="background:#7fc45d"></span>
+            <span class="swatch" style="background:#273331"></span>
+          </div>
+          <div class="mock">
+            <div class="mock-top">
+              <div class="brand"><span class="mark">¥</span> 便签本</div>
+              <span class="pill">已盖章</span>
+            </div>
+            <div class="mock-body">
+              <p class="kicker">当前已赚</p>
+              <p class="money">¥ 48.26</p>
+              <div class="meter"><span></span></div>
+              <div class="metrics">
+                <div class="metric"><b>¥0.0112</b><span>每秒</span></div>
+                <div class="metric"><b>01:11:49</b><span>已工作</span></div>
+                <div class="metric"><b>14.9%</b><span>进度</span></div>
+              </div>
+              <div class="badges">
+                <div class="badge is-on">电影票进度达成</div>
+                <div class="badge">快要收工了</div>
+              </div>
+            </div>
+          </div>
+          <div class="notes">
+            <h3>取舍</h3>
+            <p>优点是有纸感和艺术感，适合做成“成就贴纸”；缺点是如果加纹理要克制，避免影响文字清晰度。</p>
+          </div>
+        </article>
+
+        <article class="scheme" data-theme="pixel">
+          <div class="scheme-head">
+            <div>
+              <h2>方案 G：像素小卖部</h2>
+              <p class="scheme-subtitle">清亮蓝、硬边块面，偏小游戏仪表盘。</p>
+            </div>
+            <button class="copy-button" type="button" data-copy="pixel">复制方案</button>
+          </div>
+          <div class="swatches">
+            <span class="swatch" style="background:#f5fbff"></span>
+            <span class="swatch" style="background:#2176ff"></span>
+            <span class="swatch" style="background:#ffcd38"></span>
+            <span class="swatch" style="background:#ff7a59"></span>
+            <span class="swatch" style="background:#16202d"></span>
+          </div>
+          <div class="mock">
+            <div class="mock-top">
+              <div class="brand"><span class="mark">¥</span> 小卖部</div>
+              <span class="pill">LEVEL 3</span>
+            </div>
+            <div class="mock-body">
+              <p class="kicker">当前已赚</p>
+              <p class="money">¥ 48.26</p>
+              <div class="meter"><span></span></div>
+              <div class="metrics">
+                <div class="metric"><b>¥0.0112</b><span>每秒</span></div>
+                <div class="metric"><b>01:11:49</b><span>已工作</span></div>
+                <div class="metric"><b>14.9%</b><span>进度</span></div>
+              </div>
+              <div class="badges">
+                <div class="badge is-on">小购物自由</div>
+                <div class="badge">今日工资到账</div>
+              </div>
+            </div>
+          </div>
+          <div class="notes">
+            <h3>取舍</h3>
+            <p>优点是最有游戏感，成就系统会更好玩；缺点是像素风要适度，不能牺牲表单和金额的可读性。</p>
+          </div>
+        </article>
+
+        <article class="scheme" data-theme="candy">
+          <div class="scheme-head">
+            <div>
+              <h2>方案 H：糖纸光谱</h2>
+              <p class="scheme-subtitle">浅紫、青色、金黄，偏轻幻想和奖励感。</p>
+            </div>
+            <button class="copy-button" type="button" data-copy="candy">复制方案</button>
+          </div>
+          <div class="swatches">
+            <span class="swatch" style="background:#fff9fd"></span>
+            <span class="swatch" style="background:#8f65ff"></span>
+            <span class="swatch" style="background:#5ce1d8"></span>
+            <span class="swatch" style="background:#ffca5a"></span>
+            <span class="swatch" style="background:#342a43"></span>
+          </div>
+          <div class="mock">
+            <div class="mock-top">
+              <div class="brand"><span class="mark">¥</span> 奖励光谱</div>
+              <span class="pill">连锁解锁</span>
+            </div>
+            <div class="mock-body">
+              <p class="kicker">当前已赚</p>
+              <p class="money">¥ 48.26</p>
+              <div class="meter"><span></span></div>
+              <div class="metrics">
+                <div class="metric"><b>¥0.0112</b><span>每秒</span></div>
+                <div class="metric"><b>01:11:49</b><span>已工作</span></div>
+                <div class="metric"><b>14.9%</b><span>进度</span></div>
+              </div>
+              <div class="badges">
+                <div class="badge is-on">大餐基金到账</div>
+                <div class="badge">半日打工人</div>
+              </div>
+            </div>
+          </div>
+          <div class="notes">
+            <h3>取舍</h3>
+            <p>优点是奖励感强，适合配合解锁动画；缺点是紫色容易抢戏，主界面需用浅背景和深文字压住。</p>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <div class="toast" role="status" aria-live="polite">方案已复制</div>
+
+    <script>
+      const schemes = {
+        macaron: {
+          name: "方案 A：马卡龙甜账本",
+          direction: "粉、薄荷、奶油黄，轻甜但不幼稚，适合偏分享和生活方式的小工具。",
+          tokens: {
+            background: "#fff8fb",
+            surface: "#ffffff",
+            surfaceAlt: "#fff1f7",
+            primary: "#f47cab",
+            primaryStrong: "#d9578b",
+            accent: "#b8eadf",
+            accent2: "#ffe08a",
+            text: "#3d3440",
+            muted: "#7a6e78",
+            border: "#f0d9e6"
+          },
+          tradeoff:
+            "优点是亲和、可爱、适合分享截图；缺点是需要控制圆角和糖果色面积，否则容易偏儿童化。"
+        },
+        retro: {
+          name: "方案 B：复古汽水小票",
+          direction: "暖纸色、橘红、青绿，带一点旧商店和收据感。",
+          tokens: {
+            background: "#fff7e6",
+            surface: "#fffdf4",
+            surfaceAlt: "#ffe8b7",
+            primary: "#e85f3a",
+            primaryStrong: "#ba4426",
+            accent: "#36a7a0",
+            accent2: "#f6c45f",
+            text: "#3d2d20",
+            muted: "#766453",
+            border: "#e8c88d"
+          },
+          tradeoff:
+            "优点是记忆点强，成就像一张张消费小票；缺点是怀旧色容易变脏，实现时要保留足够白底。"
+        },
+        gallery: {
+          name: "方案 C：艺术馆展签",
+          direction: "留白、展签、低饱和点缀，偏高级克制的艺术感。",
+          tokens: {
+            background: "#fbfaf7",
+            surface: "#ffffff",
+            surfaceAlt: "#f2efe8",
+            primary: "#1d5f8f",
+            primaryStrong: "#13486c",
+            accent: "#e9b949",
+            accent2: "#d95d39",
+            text: "#242322",
+            muted: "#716f6a",
+            border: "#ded8cc"
+          },
+          tradeoff:
+            "优点是耐看、有审美辨识度，适合想做得更精致；缺点是趣味表达更隐性，需要成就文案承担轻松感。"
+        },
+        aurora: {
+          name: "方案 D：玻璃晨光",
+          direction: "浅蓝玻璃、柔和高光，偏现代氛围感。",
+          tokens: {
+            background: "#f7fcff",
+            surface: "rgba(255,255,255,0.82)",
+            surfaceAlt: "rgba(220,248,255,0.9)",
+            primary: "#6d7cff",
+            primaryStrong: "#4d5ed9",
+            accent: "#77ead9",
+            accent2: "#ffc36a",
+            text: "#223044",
+            muted: "#647286",
+            border: "#cae0eb"
+          },
+          tradeoff:
+            "优点是柔和、有现代感，适合做精致动效；缺点是玻璃效果要注意对比度，避免数字被背景干扰。"
+        },
+        citypop: {
+          name: "方案 E：City Pop 下班前",
+          direction: "粉橙、青蓝、亮黄，带一点复古流行感和下班情绪。",
+          tokens: {
+            background: "#fff4ee",
+            surface: "#ffffff",
+            surfaceAlt: "#ffe7f0",
+            primary: "#ff5c8a",
+            primaryStrong: "#cf3f6a",
+            accent: "#27b8d8",
+            accent2: "#ffd15c",
+            text: "#30283c",
+            muted: "#756b80",
+            border: "#ecd2df"
+          },
+          tradeoff:
+            "优点是情绪强、适合年轻化表达；缺点是颜色张力大，需要限制同屏强调元素数量。"
+        },
+        riso: {
+          name: "方案 F：Riso 便签本",
+          direction: "纸张黄、孔版印刷色，手作感和艺术感更明显。",
+          tokens: {
+            background: "#fffceb",
+            surface: "#fffdf4",
+            surfaceAlt: "#f5f0cf",
+            primary: "#2d9c8f",
+            primaryStrong: "#1d766c",
+            accent: "#ff6b5b",
+            accent2: "#7fc45d",
+            text: "#273331",
+            muted: "#65736f",
+            border: "#dfd7a9"
+          },
+          tradeoff:
+            "优点是有纸感和艺术感，适合做成“成就贴纸”；缺点是如果加纹理要克制，避免影响文字清晰度。"
+        },
+        pixel: {
+          name: "方案 G：像素小卖部",
+          direction: "清亮蓝、硬边块面，偏小游戏仪表盘和升级奖励。",
+          tokens: {
+            background: "#f5fbff",
+            surface: "#ffffff",
+            surfaceAlt: "#e8f4ff",
+            primary: "#2176ff",
+            primaryStrong: "#1456bd",
+            accent: "#ffcd38",
+            accent2: "#ff7a59",
+            text: "#16202d",
+            muted: "#657485",
+            border: "#c8d9ea"
+          },
+          tradeoff:
+            "优点是最有游戏感，成就系统会更好玩；缺点是像素风要适度，不能牺牲表单和金额的可读性。"
+        },
+        candy: {
+          name: "方案 H：糖纸光谱",
+          direction: "浅紫、青色、金黄，偏轻幻想和奖励解锁感。",
+          tokens: {
+            background: "#fff9fd",
+            surface: "#ffffff",
+            surfaceAlt: "#f3ecff",
+            primary: "#8f65ff",
+            primaryStrong: "#6d45d7",
+            accent: "#5ce1d8",
+            accent2: "#ffca5a",
+            text: "#342a43",
+            muted: "#746981",
+            border: "#e2d4f2"
+          },
+          tradeoff:
+            "优点是奖励感强，适合配合解锁动画；缺点是紫色容易抢戏，主界面需用浅背景和深文字压住。"
+        }
+      };
+
+      const toast = document.querySelector(".toast");
+      let toastTimer = 0;
+
+      function toCopyText(scheme) {
+        return [
+          scheme.name,
+          "",
+          `风格方向：${scheme.direction}`,
+          "",
+          "色彩令牌：",
+          JSON.stringify(scheme.tokens, null, 2),
+          "",
+          `取舍：${scheme.tradeoff}`,
+          "",
+          "实施建议：用于 Meager Income 的 React + Vite + TypeScript 版本；优先保证金额数字清晰、按钮状态明显、成就卡片有解锁反馈。"
+        ].join("\n");
+      }
+
+      function fallbackCopy(text) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+
+      function showToast(message) {
+        window.clearTimeout(toastTimer);
+        toast.textContent = message;
+        toast.classList.add("is-visible");
+        toastTimer = window.setTimeout(() => {
+          toast.classList.remove("is-visible");
+        }, 1600);
+      }
+
+      async function copyScheme(key) {
+        const scheme = schemes[key];
+        if (!scheme) return;
+        const text = toCopyText(scheme);
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            fallbackCopy(text);
+          }
+          showToast(`${scheme.name} 已复制`);
+        } catch (error) {
+          fallbackCopy(text);
+          showToast(`${scheme.name} 已复制`);
+        }
+      }
+
+      document.querySelectorAll("[data-copy]").forEach((button) => {
+        button.addEventListener("click", () => copyScheme(button.dataset.copy));
+      });
+    </script>
+  </body>
+</html>

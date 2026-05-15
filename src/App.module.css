@@ -1,0 +1,225 @@
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 20px;
+  min-height: 100vh;
+}
+
+/* ====== Setup View (首页/设置页) ====== */
+.setupView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 120px);
+  padding: 20px 0;
+}
+
+.setupHeader {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.headerTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.headerSubtitle {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.setupForm {
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.startBtn {
+  width: 100%;
+  max-width: 320px;
+  padding: 16px 32px;
+  border-radius: var(--radius-lg);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-strong) 100%);
+  box-shadow: 0 6px 20px rgba(0, 159, 125, 0.35);
+  transition: all var(--transition-fast);
+  letter-spacing: 0.02em;
+}
+
+.startBtn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0, 159, 125, 0.45);
+}
+
+.startBtn:active:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.startBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ====== Work View (工作页) ====== */
+.workView {
+  animation: fadeInUp 0.35s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.workHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.workHeaderTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.backBtn:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* ====== 双列卡片布局 (工作面板 + 收入速率) - 等高等宽 ====== */
+.cardsRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+@media (min-width: 640px) {
+  .cardsRow {
+    grid-template-columns: 1fr 1fr; /* 等宽 */
+    align-items: stretch; /* 等高 */
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app {
+    max-width: 800px;
+    padding: 32px 28px;
+  }
+
+  .cardsRow {
+    gap: 24px;
+  }
+
+  /* 工作面板卡片：内容多时可滚动 */
+  .workPanelCard {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 收入速率卡片：垂直居中分布 */
+  .rateCardWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+/* 工作面板卡片 */
+.workPanelCard {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.incomeSection {
+  /* IncomeDisplay 作为工作面板的头部区域 */
+}
+
+.timerSection,
+.progressSection,
+.actionsSection {
+  padding: 0 22px;
+  margin-bottom: 18px !important;
+}
+
+.actionsSection {
+  margin-bottom: 0 !important;
+  padding-bottom: 22px;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.footer {
+  text-align: center;
+  padding: 24px 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 480px) {
+  .app {
+    padding: 16px 14px;
+    max-width: none;
+  }
+
+  .headerTitle {
+    font-size: 1.65rem;
+  }
+  
+  .startBtn {
+    font-size: 1.05rem;
+    padding: 14px 24px;
+  }
+
+  .workHeaderTitle {
+    font-size: 1.1rem;
+  }
+
+  .timerSection,
+  .progressSection {
+    padding: 0 16px;
+  }
+
+  .actionsSection {
+    padding: 0 16px 18px;
+  }
+}

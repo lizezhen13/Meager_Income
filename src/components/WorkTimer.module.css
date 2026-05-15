@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.timerBlock {
+  text-align: center;
+}
+
+.timerLabel {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.timerValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+
+.progressBlock {
+  text-align: center;
+}
+
+.progressValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 480px) {
+  .container {
+    gap: 24px;
+  }
+
+  .timerValue,
+  .progressValue {
+    font-size: 1.5rem;
+  }
+}
