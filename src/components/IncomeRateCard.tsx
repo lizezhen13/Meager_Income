@@ -12,7 +12,10 @@ const IncomeRateCard: React.FC<IncomeRateCardProps> = ({ stats }) => {
 
   return (
     <div className={styles.card}>
-      <h3 className={styles.cardTitle}>收入速率</h3>
+      <h3 className={styles.cardTitle}>
+        <span className={styles.titleIcon} aria-hidden="true">🔧</span>
+        收入速率
+      </h3>
       <div className={styles.cardBody}>
         {/* 日薪置顶 - 全宽高亮 */}
         <div className={`${styles.rateItem} ${styles.dailyHighlight}`}>

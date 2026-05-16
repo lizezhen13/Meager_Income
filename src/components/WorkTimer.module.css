@@ -8,6 +8,41 @@
 .timerBlock {
   text-align: center;
   min-width: 0;
+  padding: 18px 14px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(191, 233, 217, 0.58);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.timerBlock::after,
+.progressBlock::after {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: var(--primary);
+  background: rgba(0, 159, 125, 0.08);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.timerBlock::after {
+  content: 'h';
+}
+
+.timerBlock:hover,
+.progressBlock:hover {
+  transform: translateY(-2px);
+  border-color: rgba(104, 216, 255, 0.5);
+  box-shadow: var(--shadow-md);
 }
 
 .timerLabel {
@@ -29,6 +64,18 @@
 .progressBlock {
   text-align: center;
   min-width: 0;
+  padding: 18px 14px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(191, 233, 217, 0.58);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.progressBlock::after {
+  content: '%';
 }
 
 .progressValue {
@@ -39,9 +86,19 @@
 }
 
 @media (min-width: 1024px) {
+  .timerBlock,
+  .progressBlock {
+    padding: 14px 12px;
+  }
+
   .timerValue,
   .progressValue {
-    font-size: 2.2rem;
+    font-size: 1.9rem;
+  }
+
+  .timerLabel {
+    font-size: 0.92rem;
+    margin-bottom: 4px;
   }
 }
 
@@ -50,8 +107,43 @@
     gap: 14px;
   }
 
+  .timerBlock,
+  .progressBlock {
+    padding: 16px 10px;
+  }
+
   .timerValue,
   .progressValue {
     font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 760px) {
+  .container {
+    gap: 14px;
+  }
+
+  .timerBlock,
+  .progressBlock {
+    padding: 8px 10px;
+  }
+
+  .timerBlock::after,
+  .progressBlock::after {
+    top: 8px;
+    right: 8px;
+    width: 22px;
+    height: 22px;
+    font-size: 0.7rem;
+  }
+
+  .timerLabel {
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+  }
+
+  .timerValue,
+  .progressValue {
+    font-size: 1.45rem;
   }
 }

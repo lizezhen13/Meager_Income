@@ -1,11 +1,18 @@
 .wrapper {
   width: 100%;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.54);
+  border: 1px solid rgba(191, 233, 217, 0.58);
+  box-shadow: var(--shadow-sm);
 }
 
 .infoRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
   margin-bottom: 8px;
 }
 
@@ -17,19 +24,23 @@
 
 .track {
   width: 100%;
-  height: 12px;
-  background: var(--border);
-  border-radius: 6px;
+  height: 14px;
+  background: rgba(191, 233, 217, 0.5);
+  border-radius: var(--radius-pill);
   overflow: hidden;
   position: relative;
+  box-shadow: inset 0 1px 3px rgba(23, 58, 52, 0.1);
 }
 
 .fill {
   height: 100%;
-  border-radius: 6px;
-  transition: width 0.3s ease;
-  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: var(--radius-pill);
+  transition: width 0.45s var(--ease-out);
+  background:
+    linear-gradient(90deg, var(--primary), var(--accent)),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.2) 0 8px, transparent 8px 16px);
   position: relative;
+  box-shadow: 0 0 16px rgba(104, 216, 255, 0.35);
 }
 
 .fill::after {
@@ -51,4 +62,36 @@
 @keyframes shimmer {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
+}
+
+@media (min-width: 1024px) {
+  .wrapper {
+    padding: 12px 14px;
+  }
+
+  .progressText {
+    font-size: 0.86rem;
+  }
+
+  .track {
+    height: 12px;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 760px) {
+  .wrapper {
+    padding: 8px 10px;
+  }
+
+  .infoRow {
+    margin-bottom: 5px;
+  }
+
+  .progressText {
+    font-size: 0.78rem;
+  }
+
+  .track {
+    height: 9px;
+  }
 }

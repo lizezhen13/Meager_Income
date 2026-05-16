@@ -7,6 +7,7 @@ import ProgressBar from './components/ProgressBar';
 import ActionButtons from './components/ActionButtons';
 import IncomeRateCard from './components/IncomeRateCard';
 import AchievementList from './components/AchievementList';
+import { ArrowBackIcon, PowerArmIcon } from './components/Icons';
 import styles from './App.module.css';
 
 type ViewState = 'setup' | 'working';
@@ -60,7 +61,7 @@ const App: React.FC = () => {
         <div className={styles.setupView}>
           <header className={styles.setupHeader}>
             <h1 className={styles.headerTitle}>Meager Income</h1>
-            <p className={styles.headerSubtitle}>实时工资可视化 · 看着余额一点点增长</p>
+            <p className={styles.headerSubtitle}>碎银几两苦中求，忙忙碌碌几时休</p>
           </header>
 
           <div className={styles.setupForm}>
@@ -68,7 +69,6 @@ const App: React.FC = () => {
               input={salaryInput}
               onChange={updateSalaryInput}
               disabled={false}
-              isValid={isValid}
             />
           </div>
 
@@ -77,7 +77,8 @@ const App: React.FC = () => {
             onClick={handleStart}
             disabled={!isValid}
           >
-            开始打工 💪
+            <PowerArmIcon className={styles.startIcon} />
+            <span className={styles.startText}>开始打工</span>
           </button>
         </div>
 
@@ -92,9 +93,13 @@ const App: React.FC = () => {
   return (
     <div className={`${styles.app} ${styles.workView}`}>
       <header className={styles.workHeader}>
-        <h1 className={styles.workHeaderTitle}>Meager Income</h1>
+        <h1 className={styles.workHeaderTitle}>
+          <span className={styles.brandMark} aria-hidden="true">💰</span>
+          Meager Income
+        </h1>
         <button className={styles.backBtn} onClick={handleBack}>
-          ← 返回设置
+          <ArrowBackIcon className={styles.backIcon} />
+          返回设置
         </button>
       </header>
 
@@ -141,7 +146,7 @@ const App: React.FC = () => {
           </div>
 
           {/* 下方：成就列表 */}
-          <section className={styles.section}>
+          <section className={`${styles.section} ${styles.achievementsSection}`}>
             <AchievementList
               incomeStats={incomeStats}
               unlockedIds={unlockedAchievements}

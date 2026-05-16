@@ -34,7 +34,10 @@ const AchievementList: React.FC<AchievementListProps> = ({
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>成就列表</h3>
+      <h3 className={styles.title}>
+        <span className={styles.titleIcon} aria-hidden="true">🏆</span>
+        成就列表
+      </h3>
       <div className={styles.grid}>
         {achievements.map(achievement => {
           const isUnlocked = unlockedIds.has(achievement.id);
@@ -48,8 +51,8 @@ const AchievementList: React.FC<AchievementListProps> = ({
               key={achievement.id}
               className={`${styles.achievement} ${isUnlocked ? styles.unlocked : ''}`}
             >
-              <span className={styles.lockIcon}>🔒</span>
-              <span className={styles.unlockedBadge}>✅</span>
+              <span className={styles.lockIcon} aria-hidden="true">○</span>
+              <span className={styles.unlockedBadge} aria-hidden="true">✓</span>
               
               {/* 成就名称 */}
               <p className={styles.achievementName}>{achievement.name}</p>
