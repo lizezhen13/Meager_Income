@@ -1,0 +1,9 @@
+services:
+  meager-income:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: meager-income
+    ports:
+      - "1213:1213"
+    restart: unless-stopped

@@ -24,4 +24,4 @@ const WorkTimer: React.FC<WorkTimerProps> = ({ elapsedSeconds, dailyWorkHours })
   );
 };
 
-export default WorkTimer;
+export default React.memo(WorkTimer);

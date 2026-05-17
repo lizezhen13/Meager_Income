@@ -1,12 +1,30 @@
 .container {
-  background: var(--surface-glass-strong);
+  background: rgba(255, 255, 255, 0.38);
   border-radius: var(--radius-xl);
   padding: clamp(18px, 2.2vw, 26px);
-  box-shadow: var(--shadow-lg);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 20px 46px rgba(45, 86, 101, 0.12);
   border: 1px solid var(--glass-border);
-  -webkit-backdrop-filter: blur(18px) saturate(145%);
-  backdrop-filter: blur(18px) saturate(145%);
   min-height: 0;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(16px) saturate(1.25);
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), transparent 32%),
+    linear-gradient(90deg, rgba(148, 200, 255, 0.06), transparent 32%);
+}
+
+.container > * {
+  position: relative;
+  z-index: 1;
 }
 
 .title {
@@ -37,8 +55,8 @@
 .achievement {
   padding: 14px 16px;
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(191, 233, 217, 0.58);
-  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.32);
   opacity: 0.64;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast), background var(--transition-fast);
   position: relative;
@@ -65,17 +83,21 @@
 .achievement:hover {
   transform: translateY(-2px);
   opacity: 0.9;
-  border-color: rgba(104, 216, 255, 0.46);
-  box-shadow: var(--shadow-md);
+  border-color: rgba(255, 255, 255, 0.82);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.62),
+    0 12px 28px rgba(45, 86, 101, 0.08);
 }
 
 .achievement.unlocked {
   opacity: 1;
-  border-color: rgba(104, 216, 255, 0.48);
+  border-color: rgba(255, 255, 255, 0.78);
   background:
-    linear-gradient(135deg, rgba(104, 216, 255, 0.12), rgba(131, 216, 109, 0.1)),
-    rgba(255, 255, 255, 0.66);
-  box-shadow: 0 8px 24px rgba(104, 216, 255, 0.14);
+    linear-gradient(135deg, rgba(10, 154, 130, 0.12), rgba(242, 130, 95, 0.08)),
+    rgba(255, 255, 255, 0.48);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 8px 24px rgba(45, 86, 101, 0.08);
 }
 
 .achievement.unlocked::before {
@@ -85,7 +107,7 @@
   left: 0;
   width: 4px;
   height: 100%;
-  background: linear-gradient(180deg, var(--accent), var(--accent2));
+  background: linear-gradient(180deg, #0a9a82, #f2825f);
   border-radius: var(--radius-pill);
 }
 
@@ -117,14 +139,14 @@
 
 .progressText {
   font-size: 0.85rem;
-  color: var(--accent);
+  color: var(--primary);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 
 .progressDone {
   font-size: 0.88rem;
-  color: var(--accent2);
+  color: var(--primary-strong);
   font-weight: 700;
 }
 
@@ -132,22 +154,22 @@
 .progressBar {
   width: 100%;
   height: 7px;
-  background: rgba(191, 233, 217, 0.4);
+  background: rgba(255, 255, 255, 0.48);
   border-radius: var(--radius-pill);
   overflow: hidden;
-  box-shadow: inset 0 1px 2px rgba(23, 58, 52, 0.08);
+  box-shadow: inset 0 1px 2px rgba(18, 48, 55, 0.06);
 }
 
 .progressFill {
   height: 100%;
   border-radius: var(--radius-pill);
-  background: linear-gradient(90deg, var(--primary), var(--accent));
+  background: linear-gradient(90deg, #0a9a82, #f2825f);
   transition: width 0.45s var(--ease-out);
-  min-width: 0; /* 允许为0时不占位 */
+  min-width: 0;
 }
 
 .progressFillDone {
-  background: linear-gradient(90deg, var(--accent2), #5cb850);
+  background: linear-gradient(90deg, #78ebca, #0a9a82);
 }
 
 .lockIcon {
@@ -160,7 +182,7 @@
   height: 22px;
   border-radius: 50%;
   color: var(--muted);
-  background: rgba(255, 255, 255, 0.62);
+  background: rgba(255, 255, 255, 0.52);
   font-size: 0.72rem;
   font-weight: 900;
   opacity: 0.58;
@@ -180,8 +202,8 @@
   height: 22px;
   border-radius: 50%;
   color: #ffffff;
-  background: linear-gradient(135deg, var(--accent2), var(--primary));
-  box-shadow: 0 8px 18px rgba(0, 159, 125, 0.2);
+  background: linear-gradient(135deg, #0a9a82, #78ebca);
+  box-shadow: 0 8px 18px rgba(10, 154, 130, 0.18);
   font-size: 0.72rem;
   font-weight: 900;
   opacity: 0;

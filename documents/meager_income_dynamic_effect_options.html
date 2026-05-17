@@ -1,0 +1,1273 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meager Income 动态背景与卡片方案对比</title>
+    <style>
+      :root {
+        color: #172027;
+        background: #f7f9fb;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", "Microsoft YaHei", sans-serif;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        background:
+          radial-gradient(circle at 12% 10%, rgba(77, 182, 172, 0.16), transparent 28%),
+          radial-gradient(circle at 88% 12%, rgba(244, 136, 118, 0.16), transparent 26%),
+          linear-gradient(180deg, #fbfcfd 0%, #edf3f4 100%);
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .page {
+        width: min(1480px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 34px 0 54px;
+      }
+
+      .intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 22px;
+        align-items: end;
+        margin-bottom: 24px;
+      }
+
+      .intro h1 {
+        margin: 0 0 10px;
+        color: #152028;
+        font-size: clamp(28px, 4vw, 48px);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .intro p {
+        max-width: 790px;
+        margin: 0;
+        color: #5e6c76;
+        font-size: 15px;
+        line-height: 1.72;
+      }
+
+      .hint {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 8px;
+        max-width: 410px;
+      }
+
+      .hint span {
+        border: 1px solid rgba(40, 54, 64, 0.12);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        color: #51606a;
+        padding: 8px 11px;
+        font-size: 13px;
+        white-space: nowrap;
+        backdrop-filter: blur(10px);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .option {
+        overflow: hidden;
+        border: 1px solid rgba(42, 54, 65, 0.12);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.78);
+        box-shadow: 0 18px 42px rgba(28, 43, 55, 0.1);
+      }
+
+      .preview {
+        position: relative;
+        min-height: 390px;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .mock-shell {
+        position: relative;
+        z-index: 4;
+        display: grid;
+        grid-template-columns: 1fr 0.78fr;
+        gap: 13px;
+        height: 100%;
+        padding: 22px;
+      }
+
+      .mock-main,
+      .mock-side {
+        display: grid;
+        gap: 12px;
+        align-content: start;
+      }
+
+      .mock-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        grid-column: 1 / -1;
+        min-height: 38px;
+      }
+
+      .mock-title {
+        display: grid;
+        gap: 5px;
+      }
+
+      .mock-title strong {
+        font-size: 17px;
+        line-height: 1.1;
+      }
+
+      .mock-title span {
+        font-size: 12px;
+        opacity: 0.72;
+      }
+
+      .mock-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 68px;
+        min-height: 30px;
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .mock-card {
+        min-height: 106px;
+        padding: 15px;
+      }
+
+      .mock-card.big {
+        min-height: 153px;
+      }
+
+      .mock-card.compact {
+        min-height: 76px;
+      }
+
+      .mock-label {
+        margin: 0 0 8px;
+        font-size: 12px;
+        opacity: 0.68;
+      }
+
+      .mock-value {
+        margin: 0;
+        font-size: clamp(24px, 3vw, 34px);
+        font-weight: 850;
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      .mock-sub {
+        margin: 9px 0 0;
+        font-size: 12px;
+        line-height: 1.45;
+        opacity: 0.78;
+      }
+
+      .bars {
+        display: grid;
+        gap: 7px;
+        margin-top: 12px;
+      }
+
+      .bar {
+        position: relative;
+        height: 8px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.38);
+      }
+
+      .bar::before {
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: var(--w);
+        border-radius: inherit;
+        background: currentColor;
+        content: "";
+        animation: fill-pulse 3.8s ease-in-out infinite;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .metric {
+        min-height: 76px;
+        padding: 12px;
+      }
+
+      .metric b {
+        display: block;
+        margin-top: 5px;
+        font-size: 18px;
+      }
+
+      .metric span {
+        font-size: 11px;
+        opacity: 0.68;
+      }
+
+      .option-body {
+        display: grid;
+        gap: 12px;
+        padding: 16px 17px 18px;
+      }
+
+      .option-head {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .option h2 {
+        margin: 0;
+        color: #172027;
+        font-size: 19px;
+        line-height: 1.22;
+        letter-spacing: 0;
+      }
+
+      .copy-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 84px;
+        min-height: 34px;
+        border: 1px solid rgba(23, 32, 39, 0.16);
+        border-radius: 8px;
+        background: #ffffff;
+        color: #1f2c34;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 750;
+        transition:
+          transform 160ms ease,
+          border-color 160ms ease,
+          background 160ms ease;
+      }
+
+      .copy-button:hover {
+        transform: translateY(-1px);
+        border-color: rgba(23, 32, 39, 0.28);
+        background: #f7fbfb;
+      }
+
+      .copy-button.copied {
+        border-color: rgba(28, 139, 95, 0.28);
+        background: #eaf8f1;
+        color: #176b49;
+      }
+
+      .tradeoff {
+        display: grid;
+        gap: 7px;
+        margin: 0;
+        color: #52616a;
+        font-size: 13px;
+        line-height: 1.62;
+      }
+
+      .tradeoff strong {
+        color: #26343d;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .tags span {
+        border: 1px solid rgba(29, 42, 52, 0.1);
+        border-radius: 999px;
+        background: #f8fafb;
+        color: #5b6972;
+        padding: 5px 8px;
+        font-size: 12px;
+      }
+
+      /* Option 1: Aurora Glass */
+      .aurora {
+        color: #123037;
+        background:
+          radial-gradient(circle at 16% 18%, rgba(120, 235, 202, 0.5), transparent 25%),
+          radial-gradient(circle at 80% 16%, rgba(255, 149, 118, 0.38), transparent 24%),
+          linear-gradient(135deg, #eefdf7 0%, #f4f8ff 48%, #fff6f0 100%);
+      }
+
+      .aurora::before,
+      .aurora::after {
+        position: absolute;
+        z-index: 0;
+        inset: auto;
+        width: 430px;
+        height: 220px;
+        border-radius: 50%;
+        filter: blur(28px);
+        opacity: 0.78;
+        content: "";
+        mix-blend-mode: multiply;
+        animation: aurora-drift 11s ease-in-out infinite alternate;
+      }
+
+      .aurora::before {
+        top: 18%;
+        left: -20%;
+        background: linear-gradient(90deg, #62dbc7, #94c8ff, #ffb199);
+      }
+
+      .aurora::after {
+        right: -28%;
+        bottom: 10%;
+        background: linear-gradient(90deg, #ffdf8c, #9ce7d4, #b7b6ff);
+        animation-delay: -4s;
+      }
+
+      .aurora .mock-card,
+      .aurora .metric,
+      .aurora .mock-pill {
+        border: 1px solid rgba(255, 255, 255, 0.76);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.38);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.72),
+          0 20px 46px rgba(45, 86, 101, 0.14);
+        backdrop-filter: blur(18px) saturate(1.32);
+      }
+
+      .aurora .bar::before {
+        background: linear-gradient(90deg, #0a9a82, #f2825f);
+      }
+
+      /* Option 2: Pixel Treasury */
+      .pixel {
+        color: #16352e;
+        background:
+          linear-gradient(90deg, rgba(18, 52, 45, 0.08) 1px, transparent 1px),
+          linear-gradient(rgba(18, 52, 45, 0.08) 1px, transparent 1px),
+          linear-gradient(135deg, #f1ffdb 0%, #d8faf2 50%, #ffe9cf 100%);
+        background-size:
+          18px 18px,
+          18px 18px,
+          100% 100%;
+      }
+
+      .pixel .pixel-cloud {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background:
+          linear-gradient(90deg, transparent 0 20px, rgba(36, 145, 98, 0.2) 20px 28px, transparent 28px 54px),
+          linear-gradient(0deg, transparent 0 28px, rgba(255, 136, 72, 0.22) 28px 36px, transparent 36px 74px);
+        background-size: 74px 74px;
+        image-rendering: pixelated;
+        opacity: 0.56;
+        animation: pixel-shift 7s steps(9) infinite;
+      }
+
+      .pixel .coin {
+        position: absolute;
+        z-index: 1;
+        width: 13px;
+        height: 13px;
+        background: #ffd45c;
+        box-shadow:
+          18px 24px 0 #19a974,
+          78px 7px 0 #ff8a5f,
+          145px 38px 0 #2b8be6,
+          230px 12px 0 #ffd45c,
+          330px 58px 0 #19a974;
+        image-rendering: pixelated;
+        opacity: 0.78;
+        animation: coin-bob 2.4s steps(4) infinite;
+      }
+
+      .pixel .coin.a {
+        top: 48px;
+        left: 28px;
+      }
+
+      .pixel .coin.b {
+        right: 80px;
+        bottom: 92px;
+        animation-delay: -1s;
+      }
+
+      .pixel .mock-card,
+      .pixel .metric,
+      .pixel .mock-pill {
+        border: 2px solid #1f4f45;
+        border-radius: 0;
+        background: rgba(255, 251, 218, 0.86);
+        box-shadow:
+          4px 4px 0 rgba(31, 79, 69, 0.34),
+          inset -4px -4px 0 rgba(255, 168, 92, 0.15);
+      }
+
+      .pixel .mock-pill {
+        background: #d9ff87;
+      }
+
+      .pixel .bar {
+        border-radius: 0;
+        background: rgba(31, 79, 69, 0.16);
+      }
+
+      .pixel .bar::before {
+        border-radius: 0;
+        background: #1da270;
+      }
+
+      /* Option 3: Editorial Paper */
+      .paper {
+        color: #26333a;
+        background:
+          radial-gradient(circle at 18% 12%, rgba(255, 104, 104, 0.22), transparent 20%),
+          radial-gradient(circle at 82% 8%, rgba(71, 189, 173, 0.23), transparent 22%),
+          linear-gradient(135deg, #fff9ed 0%, #eef8f5 48%, #f9f4ff 100%);
+      }
+
+      .paper::before {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background-image:
+          linear-gradient(rgba(38, 51, 58, 0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(38, 51, 58, 0.035) 1px, transparent 1px);
+        background-size: 34px 34px;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.08));
+        content: "";
+      }
+
+      .paper .cutout {
+        position: absolute;
+        z-index: 1;
+        border: 1px solid rgba(38, 51, 58, 0.08);
+        background: rgba(255, 255, 255, 0.64);
+        box-shadow: 0 14px 22px rgba(57, 65, 71, 0.08);
+        transform: rotate(var(--r));
+        animation: paper-float 6.5s ease-in-out infinite;
+      }
+
+      .paper .cutout.one {
+        top: 72px;
+        right: 44px;
+        width: 88px;
+        height: 58px;
+        --r: 8deg;
+      }
+
+      .paper .cutout.two {
+        bottom: 56px;
+        left: 34px;
+        width: 122px;
+        height: 42px;
+        --r: -6deg;
+        animation-delay: -3s;
+      }
+
+      .paper .mock-card,
+      .paper .metric,
+      .paper .mock-pill {
+        border: 1px solid rgba(48, 60, 68, 0.12);
+        border-radius: 6px;
+        background: rgba(255, 253, 246, 0.92);
+        box-shadow:
+          0 13px 24px rgba(51, 62, 72, 0.09),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.72);
+      }
+
+      .paper .mock-card.big {
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 250, 232, 0.86)),
+          linear-gradient(90deg, rgba(242, 110, 96, 0.12), transparent);
+      }
+
+      .paper .bar::before {
+        background: linear-gradient(90deg, #e95f52, #36a99a);
+      }
+
+      /* Option 4: Night Terminal */
+      .terminal {
+        color: #d6fff2;
+        background:
+          radial-gradient(circle at 82% 18%, rgba(255, 164, 76, 0.22), transparent 25%),
+          radial-gradient(circle at 16% 82%, rgba(84, 196, 255, 0.18), transparent 28%),
+          linear-gradient(135deg, #071211 0%, #0a2027 56%, #1a1723 100%);
+      }
+
+      .terminal::before {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background:
+          repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px 6px),
+          linear-gradient(90deg, transparent, rgba(73, 255, 188, 0.08), transparent);
+        content: "";
+        opacity: 0.48;
+        animation: scan 5.5s linear infinite;
+      }
+
+      .terminal .ticker {
+        position: absolute;
+        z-index: 1;
+        top: 24px;
+        right: -20px;
+        display: flex;
+        gap: 18px;
+        color: rgba(145, 255, 213, 0.5);
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 12px;
+        white-space: nowrap;
+        animation: ticker 11s linear infinite;
+      }
+
+      .terminal .mock-card,
+      .terminal .metric,
+      .terminal .mock-pill {
+        border: 1px solid rgba(117, 255, 210, 0.2);
+        border-radius: 7px;
+        background: rgba(5, 18, 20, 0.68);
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+          0 0 22px rgba(68, 232, 178, 0.1);
+        backdrop-filter: blur(8px);
+      }
+
+      .terminal .mock-pill {
+        color: #061210;
+        background: #76ffd2;
+      }
+
+      .terminal .mock-card.big {
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+          0 0 34px rgba(255, 159, 84, 0.14);
+      }
+
+      .terminal .bar {
+        background: rgba(118, 255, 210, 0.13);
+      }
+
+      .terminal .bar::before {
+        background: linear-gradient(90deg, #76ffd2, #ffad66);
+      }
+
+      /* Option 5: Sunlit Desk */
+      .desk {
+        color: #23333a;
+        background:
+          radial-gradient(circle at 70% 10%, rgba(255, 202, 93, 0.28), transparent 26%),
+          radial-gradient(circle at 20% 80%, rgba(72, 196, 171, 0.2), transparent 28%),
+          linear-gradient(145deg, #fef8e8 0%, #effaf7 46%, #f3f5ff 100%);
+      }
+
+      .desk::before {
+        position: absolute;
+        z-index: 0;
+        inset: -20%;
+        background:
+          linear-gradient(105deg, transparent 14%, rgba(255, 255, 255, 0.54) 19%, transparent 24%),
+          linear-gradient(105deg, transparent 42%, rgba(255, 196, 88, 0.2) 48%, transparent 54%),
+          linear-gradient(105deg, transparent 68%, rgba(255, 255, 255, 0.44) 72%, transparent 78%);
+        content: "";
+        transform: translateX(-10%);
+        animation: sunlight 9s ease-in-out infinite alternate;
+      }
+
+      .desk .dust {
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+        background-image:
+          radial-gradient(circle, rgba(38, 51, 58, 0.2) 0 1px, transparent 2px),
+          radial-gradient(circle, rgba(255, 146, 97, 0.28) 0 1px, transparent 2px);
+        background-position:
+          20px 20px,
+          92px 62px;
+        background-size:
+          82px 82px,
+          118px 118px;
+        opacity: 0.34;
+        animation: dust 10s linear infinite;
+      }
+
+      .desk .mock-card,
+      .desk .metric,
+      .desk .mock-pill {
+        border: 1px solid rgba(255, 255, 255, 0.76);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow:
+          0 16px 32px rgba(70, 83, 87, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      }
+
+      .desk .mock-card.big {
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(255, 242, 213, 0.72)),
+          rgba(255, 255, 255, 0.76);
+      }
+
+      .desk .bar::before {
+        background: linear-gradient(90deg, #2ca58d, #ff9067);
+      }
+
+      /* Option 6: Kinetic Mesh */
+      .mesh {
+        color: #111923;
+        background:
+          conic-gradient(from 60deg at 28% 28%, #4be0b5, #f87c6d, #6588ff, #ffe06b, #4be0b5);
+      }
+
+      .mesh::before,
+      .mesh::after {
+        position: absolute;
+        inset: -30%;
+        z-index: 0;
+        background:
+          radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.72), transparent 19%),
+          radial-gradient(circle at 70% 70%, rgba(5, 18, 24, 0.28), transparent 22%),
+          conic-gradient(from 180deg, #3ae2c0, #ff7e6b, #6f82ff, #ffe36d, #3ae2c0);
+        filter: blur(30px) saturate(1.2);
+        content: "";
+        opacity: 0.78;
+        animation: mesh-spin 12s linear infinite;
+      }
+
+      .mesh::after {
+        filter: blur(12px) saturate(1.4);
+        opacity: 0.32;
+        animation-direction: reverse;
+        animation-duration: 8s;
+      }
+
+      .mesh .mesh-line {
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.24) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+        background-size: 42px 42px;
+        mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.8), transparent 70%);
+        animation: mesh-grid 6s ease-in-out infinite alternate;
+      }
+
+      .mesh .mock-card,
+      .mesh .metric,
+      .mesh .mock-pill {
+        border: 1px solid rgba(255, 255, 255, 0.44);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.46);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.64),
+          0 20px 40px rgba(18, 31, 42, 0.18);
+        backdrop-filter: blur(22px) saturate(1.45);
+      }
+
+      .mesh .mock-pill {
+        background: rgba(255, 255, 255, 0.78);
+      }
+
+      .mesh .bar::before {
+        background: linear-gradient(90deg, #111923, #ffffff);
+      }
+
+      @keyframes aurora-drift {
+        from {
+          transform: translate3d(0, 0, 0) rotate(-8deg) scale(1);
+        }
+        to {
+          transform: translate3d(80px, 26px, 0) rotate(10deg) scale(1.16);
+        }
+      }
+
+      @keyframes pixel-shift {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(74px, 74px);
+        }
+      }
+
+      @keyframes coin-bob {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes paper-float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(var(--r));
+        }
+        50% {
+          transform: translateY(-12px) rotate(calc(var(--r) * -0.6));
+        }
+      }
+
+      @keyframes scan {
+        from {
+          background-position:
+            0 0,
+            -160px 0;
+        }
+        to {
+          background-position:
+            0 42px,
+            260px 0;
+        }
+      }
+
+      @keyframes ticker {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-260px);
+        }
+      }
+
+      @keyframes sunlight {
+        from {
+          transform: translateX(-12%) rotate(0deg);
+        }
+        to {
+          transform: translateX(8%) rotate(2deg);
+        }
+      }
+
+      @keyframes dust {
+        from {
+          background-position:
+            20px 20px,
+            92px 62px;
+        }
+        to {
+          background-position:
+            64px 96px,
+            44px 148px;
+        }
+      }
+
+      @keyframes mesh-spin {
+        from {
+          transform: rotate(0deg) scale(1);
+        }
+        to {
+          transform: rotate(360deg) scale(1.04);
+        }
+      }
+
+      @keyframes mesh-grid {
+        from {
+          transform: perspective(600px) rotateX(0deg) scale(1);
+        }
+        to {
+          transform: perspective(600px) rotateX(8deg) scale(1.08);
+        }
+      }
+
+      @keyframes fill-pulse {
+        0%,
+        100% {
+          transform: scaleX(0.94);
+          transform-origin: left center;
+        }
+        50% {
+          transform: scaleX(1.04);
+          transform-origin: left center;
+        }
+      }
+
+      @media (max-width: 1180px) {
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 780px) {
+        .page {
+          width: min(100% - 28px, 640px);
+          padding-top: 24px;
+        }
+
+        .intro {
+          grid-template-columns: 1fr;
+        }
+
+        .hint {
+          justify-content: flex-start;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .mock-shell {
+          grid-template-columns: 1fr;
+          padding: 18px;
+        }
+
+        .mock-topbar {
+          grid-column: auto;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="intro">
+        <div>
+          <h1>动态背景与卡片效果方案</h1>
+          <p>
+            下面六个方向都按 Meager Income 的“收入计时器 / 进度卡片 / 成就反馈”界面做了缩略预览。
+            点击复制按钮会复制完整方案描述，方便你直接把选中的方向发回来让我落地到应用里。
+          </p>
+        </div>
+        <div class="hint" aria-label="对比维度">
+          <span>背景动效</span>
+          <span>卡片质感</span>
+          <span>性能取舍</span>
+          <span>应用适配</span>
+        </div>
+      </header>
+
+      <section class="grid" aria-label="六个动态视觉方案">
+        <article class="option">
+          <div class="preview aurora" aria-label="方案一预览">
+            <div class="mock-shell">
+              <div class="mock-topbar">
+                <div class="mock-title">
+                  <strong>Meager Income</strong>
+                  <span>Today is worth tracking</span>
+                </div>
+                <span class="mock-pill">LIVE</span>
+              </div>
+              <div class="mock-main">
+                <section class="mock-card big">
+                  <p class="mock-label">已赚取</p>
+                  <p class="mock-value">¥ 286.40</p>
+                  <p class="mock-sub">柔和彩带在背景慢速流动，卡片保持毛玻璃透亮。</p>
+                  <div class="bars">
+                    <span class="bar" style="--w: 72%"></span>
+                    <span class="bar" style="--w: 48%"></span>
+                  </div>
+                </section>
+                <div class="metrics">
+                  <section class="metric"><span>时薪</span><b>¥ 43</b></section>
+                  <section class="metric"><span>进度</span><b>68%</b></section>
+                </div>
+              </div>
+              <aside class="mock-side">
+                <section class="mock-card compact">
+                  <p class="mock-label">工作时间</p>
+                  <p class="mock-sub">06:38:12</p>
+                </section>
+                <section class="mock-card">
+                  <p class="mock-label">下一成就</p>
+                  <p class="mock-sub">一杯咖啡 · 还差 ¥ 9.60</p>
+                </section>
+              </aside>
+            </div>
+          </div>
+          <div class="option-body">
+            <div class="option-head">
+              <h2>方案 1：晨雾玻璃 Aurora Glass</h2>
+              <button
+                class="copy-button"
+                type="button"
+                data-copy="我选择方案 1：晨雾玻璃 Aurora Glass。请把整个应用改成柔和的动态毛玻璃氛围：背景使用低饱和青绿、浅蓝、珊瑚色的慢速 aurora 光带和径向光斑；主要卡片使用半透明白色、blur/saturate 毛玻璃、细白边和轻阴影；进度条和状态点使用青绿到珊瑚的渐变。动效要克制、慢速、舒适，适合日常长时间打开。注意保留 reduced-motion 支持，并控制 blur 数量避免性能过重。"
+              >
+                复制方案
+              </button>
+            </div>
+            <p class="tradeoff">
+              <span><strong>取：</strong>最贴近日常生产力工具，质感高级、耐看，和收入计时器的轻量场景匹配。</span>
+              <span><strong>舍：</strong>视觉记忆点不如像素或终端风强，过多毛玻璃会吃性能，需要限制层数。</span>
+            </p>
+            <div class="tags"><span>毛玻璃</span><span>低干扰</span><span>轻奢氛围</span></div>
+          </div>
+        </article>
+
+        <article class="option">
+          <div class="preview pixel" aria-label="方案二预览">
+            <div class="pixel-cloud"></div>
+            <span class="coin a"></span>
+            <span class="coin b"></span>
+            <div class="mock-shell">
+              <div class="mock-topbar">
+                <div class="mock-title">
+                  <strong>Meager Income</strong>
+                  <span>Coin by coin</span>
+                </div>
+                <span class="mock-pill">LV. 08</span>
+              </div>
+              <div class="mock-main">
+                <section class="mock-card big">
+                  <p class="mock-label">已赚取</p>
+                  <p class="mock-value">¥ 286.40</p>
+                  <p class="mock-sub">像素网格、硬边卡片和跳动金币，让“赚钱进度”更游戏化。</p>
+                  <div class="bars">
+                    <span class="bar" style="--w: 76%"></span>
+                    <span class="bar" style="--w: 39%"></span>
+                  </div>
+                </section>
+                <div class="metrics">
+                  <section class="metric"><span>金币/时</span><b>43</b></section>
+                  <section class="metric"><span>连击</span><b>12</b></section>
+                </div>
+              </div>
+              <aside class="mock-side">
+                <section class="mock-card compact">
+                  <p class="mock-label">今日任务</p>
+                  <p class="mock-sub">6 / 8</p>
+                </section>
+                <section class="mock-card">
+                  <p class="mock-label">下一奖励</p>
+                  <p class="mock-sub">解锁便当徽章</p>
+                </section>
+              </aside>
+            </div>
+          </div>
+          <div class="option-body">
+            <div class="option-head">
+              <h2>方案 2：像素金库 Pixel Treasury</h2>
+              <button
+                class="copy-button"
+                type="button"
+                data-copy="我选择方案 2：像素金库 Pixel Treasury。请把应用做成轻游戏化像素风：背景用 18px 左右的像素网格、像素云块和少量跳动金币/方块；卡片使用硬边、2px 深色描边、4px 偏移像素阴影；进度条、成就、按钮都更像游戏 HUD。动效使用 steps()，保持像素感。整体要有趣但不能牺牲可读性，数字仍然要清晰。"
+              >
+                复制方案
+              </button>
+            </div>
+            <p class="tradeoff">
+              <span><strong>取：</strong>记忆点强，和“收入增长、成就解锁”天然契合，适合把应用做得更上瘾。</span>
+              <span><strong>舍：</strong>职场工具感会变弱，像素元素多了容易显幼，需要控制密度和颜色。</span>
+            </p>
+            <div class="tags"><span>像素</span><span>游戏化</span><span>强识别</span></div>
+          </div>
+        </article>
+
+        <article class="option">
+          <div class="preview paper" aria-label="方案三预览">
+            <span class="cutout one"></span>
+            <span class="cutout two"></span>
+            <div class="mock-shell">
+              <div class="mock-topbar">
+                <div class="mock-title">
+                  <strong>Meager Income</strong>
+                  <span>Quiet personal ledger</span>
+                </div>
+                <span class="mock-pill">NOTE</span>
+              </div>
+              <div class="mock-main">
+                <section class="mock-card big">
+                  <p class="mock-label">已赚取</p>
+                  <p class="mock-value">¥ 286.40</p>
+                  <p class="mock-sub">纸张、剪贴、轻微漂浮，像一本会呼吸的私人账本。</p>
+                  <div class="bars">
+                    <span class="bar" style="--w: 69%"></span>
+                    <span class="bar" style="--w: 51%"></span>
+                  </div>
+                </section>
+                <div class="metrics">
+                  <section class="metric"><span>本周</span><b>¥ 912</b></section>
+                  <section class="metric"><span>目标</span><b>42%</b></section>
+                </div>
+              </div>
+              <aside class="mock-side">
+                <section class="mock-card compact">
+                  <p class="mock-label">记录</p>
+                  <p class="mock-sub">12 条</p>
+                </section>
+                <section class="mock-card">
+                  <p class="mock-label">提醒</p>
+                  <p class="mock-sub">今天多喝水，少看余额。</p>
+                </section>
+              </aside>
+            </div>
+          </div>
+          <div class="option-body">
+            <div class="option-head">
+              <h2>方案 3：剪贴账本 Editorial Paper</h2>
+              <button
+                class="copy-button"
+                type="button"
+                data-copy="我选择方案 3：剪贴账本 Editorial Paper。请把应用改成有艺术感的私人账本：背景用温和纸张底色、细网格/纸纹、淡彩色块和少量漂浮剪贴纸片；卡片像半透明纸卡，使用 6px 小圆角、细边框、浅阴影和轻微层叠；动效只做缓慢漂浮和光影变化。整体要安静、亲和、有手作感，适合记录收入和小成就。"
+              >
+                复制方案
+              </button>
+            </div>
+            <p class="tradeoff">
+              <span><strong>取：</strong>更温柔、有生活感，能弱化“盯着钱”的压力，适合长期记录。</span>
+              <span><strong>舍：</strong>科技感较弱，如果未来要做数据仪表盘，可能需要补充更清晰的图表层级。</span>
+            </p>
+            <div class="tags"><span>艺术账本</span><span>纸感</span><span>温和</span></div>
+          </div>
+        </article>
+
+        <article class="option">
+          <div class="preview terminal" aria-label="方案四预览">
+            <div class="ticker">
+              <span>¥43/H</span><span>+0.72/MIN</span><span>SESSION 06:38</span><span>GOAL 68%</span><span>¥43/H</span>
+            </div>
+            <div class="mock-shell">
+              <div class="mock-topbar">
+                <div class="mock-title">
+                  <strong>Meager Income</strong>
+                  <span>Live earning terminal</span>
+                </div>
+                <span class="mock-pill">SYNC</span>
+              </div>
+              <div class="mock-main">
+                <section class="mock-card big">
+                  <p class="mock-label">已赚取</p>
+                  <p class="mock-value">¥ 286.40</p>
+                  <p class="mock-sub">暗色扫描线和滚动 ticker，让收入变化像实时行情。</p>
+                  <div class="bars">
+                    <span class="bar" style="--w: 82%"></span>
+                    <span class="bar" style="--w: 58%"></span>
+                  </div>
+                </section>
+                <div class="metrics">
+                  <section class="metric"><span>RATE</span><b>43.0</b></section>
+                  <section class="metric"><span>ETA</span><b>2h</b></section>
+                </div>
+              </div>
+              <aside class="mock-side">
+                <section class="mock-card compact">
+                  <p class="mock-label">STATUS</p>
+                  <p class="mock-sub">RUNNING</p>
+                </section>
+                <section class="mock-card">
+                  <p class="mock-label">LOG</p>
+                  <p class="mock-sub">milestone detected</p>
+                </section>
+              </aside>
+            </div>
+          </div>
+          <div class="option-body">
+            <div class="option-head">
+              <h2>方案 4：夜间终端 Night Terminal</h2>
+              <button
+                class="copy-button"
+                type="button"
+                data-copy="我选择方案 4：夜间终端 Night Terminal。请把应用改成暗色实时行情/终端风：背景使用深青黑到暗紫的渐变、低透明扫描线、轻微滚动 ticker；卡片用暗色半透明面板、细霓虹边框、青绿与暖橙强调色；数字区域像实时收入仪表盘。动效要偏数据感，但不能闪烁刺眼。需要重点检查可读性、对比度和移动端暗色层级。"
+              >
+                复制方案
+              </button>
+            </div>
+            <p class="tradeoff">
+              <span><strong>取：</strong>专业、沉浸、数据感强，适合把“实时赚钱”做成仪表盘体验。</span>
+              <span><strong>舍：</strong>暗色和扫描线容易压迫，白天使用未必轻松，需要高对比和低闪烁。</span>
+            </p>
+            <div class="tags"><span>暗色</span><span>实时数据</span><span>高沉浸</span></div>
+          </div>
+        </article>
+
+        <article class="option">
+          <div class="preview desk" aria-label="方案五预览">
+            <div class="dust"></div>
+            <div class="mock-shell">
+              <div class="mock-topbar">
+                <div class="mock-title">
+                  <strong>Meager Income</strong>
+                  <span>Sunlit work session</span>
+                </div>
+                <span class="mock-pill">FOCUS</span>
+              </div>
+              <div class="mock-main">
+                <section class="mock-card big">
+                  <p class="mock-label">已赚取</p>
+                  <p class="mock-value">¥ 286.40</p>
+                  <p class="mock-sub">斜向光束、漂浮尘点和柔软卡片，像午后桌面上的收入面板。</p>
+                  <div class="bars">
+                    <span class="bar" style="--w: 66%"></span>
+                    <span class="bar" style="--w: 44%"></span>
+                  </div>
+                </section>
+                <div class="metrics">
+                  <section class="metric"><span>专注</span><b>96m</b></section>
+                  <section class="metric"><span>节奏</span><b>稳</b></section>
+                </div>
+              </div>
+              <aside class="mock-side">
+                <section class="mock-card compact">
+                  <p class="mock-label">休息</p>
+                  <p class="mock-sub">14:30</p>
+                </section>
+                <section class="mock-card">
+                  <p class="mock-label">小目标</p>
+                  <p class="mock-sub">到 ¥ 300 再停一下</p>
+                </section>
+              </aside>
+            </div>
+          </div>
+          <div class="option-body">
+            <div class="option-head">
+              <h2>方案 5：日光桌面 Sunlit Desk</h2>
+              <button
+                class="copy-button"
+                type="button"
+                data-copy="我选择方案 5：日光桌面 Sunlit Desk。请把应用改成明亮、专注、像桌面阳光的氛围：背景使用浅暖色到薄荷/淡蓝的渐变，叠加缓慢移动的斜向光束和少量尘点；卡片用半透明白、柔和阴影、小圆角，像放在桌面上的轻量组件；强调色用青绿和珊瑚，不要做成单一米色。动效要非常轻，优先舒适和可读性。"
+              >
+                复制方案
+              </button>
+            </div>
+            <p class="tradeoff">
+              <span><strong>取：</strong>明亮、舒适、压力小，适合工作时挂在旁边看，不容易视觉疲劳。</span>
+              <span><strong>舍：</strong>不够酷，动态记忆点较弱；如果光束太强会影响文字，需要严格控透明度。</span>
+            </p>
+            <div class="tags"><span>明亮</span><span>专注</span><span>低疲劳</span></div>
+          </div>
+        </article>
+
+        <article class="option">
+          <div class="preview mesh" aria-label="方案六预览">
+            <div class="mesh-line"></div>
+            <div class="mock-shell">
+              <div class="mock-topbar">
+                <div class="mock-title">
+                  <strong>Meager Income</strong>
+                  <span>Kinetic earnings</span>
+                </div>
+                <span class="mock-pill">BOOST</span>
+              </div>
+              <div class="mock-main">
+                <section class="mock-card big">
+                  <p class="mock-label">已赚取</p>
+                  <p class="mock-value">¥ 286.40</p>
+                  <p class="mock-sub">液态网格和高饱和动态色场，强调能量、速度、成长。</p>
+                  <div class="bars">
+                    <span class="bar" style="--w: 79%"></span>
+                    <span class="bar" style="--w: 62%"></span>
+                  </div>
+                </section>
+                <div class="metrics">
+                  <section class="metric"><span>动能</span><b>92</b></section>
+                  <section class="metric"><span>目标</span><b>近</b></section>
+                </div>
+              </div>
+              <aside class="mock-side">
+                <section class="mock-card compact">
+                  <p class="mock-label">加速</p>
+                  <p class="mock-sub">+12%</p>
+                </section>
+                <section class="mock-card">
+                  <p class="mock-label">下一步</p>
+                  <p class="mock-sub">冲到晚餐预算</p>
+                </section>
+              </aside>
+            </div>
+          </div>
+          <div class="option-body">
+            <div class="option-head">
+              <h2>方案 6：动能彩网 Kinetic Mesh</h2>
+              <button
+                class="copy-button"
+                type="button"
+                data-copy="我选择方案 6：动能彩网 Kinetic Mesh。请把应用改成高能现代视觉：背景使用 conic/radial gradient 形成液态彩色网格，低速旋转或呼吸；卡片保持半透明玻璃质感，边缘更亮，关键收入数字压在彩色场上但要保证清晰；进度条可以用深色到白色或反差渐变。整体要有动势和冲刺感，但需要控制动画速度、饱和度和 blur 层数，避免过度花。"
+              >
+                复制方案
+              </button>
+            </div>
+            <p class="tradeoff">
+              <span><strong>取：</strong>最有冲击力和现代感，适合想让应用显得更鲜活、更像个人效率玩具。</span>
+              <span><strong>舍：</strong>风险也最高，容易抢走内容注意力；移动端和低性能设备要做降级。</span>
+            </p>
+            <div class="tags"><span>高能</span><span>现代</span><span>强动效</span></div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const buttons = document.querySelectorAll(".copy-button");
+
+      async function writeClipboard(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+          return;
+        }
+
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", async () => {
+          const original = button.textContent;
+          try {
+            await writeClipboard(button.dataset.copy);
+            buttons.forEach((item) => item.classList.remove("copied"));
+            button.classList.add("copied");
+            button.textContent = "已复制";
+            window.setTimeout(() => {
+              button.classList.remove("copied");
+              button.textContent = original;
+            }, 1500);
+          } catch {
+            button.textContent = "复制失败";
+            window.setTimeout(() => {
+              button.textContent = original;
+            }, 1500);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -36,4 +36,4 @@ const IncomeDisplay: React.FC<IncomeDisplayProps> = ({ amount, status }) => {
   );
 };
 
-export default IncomeDisplay;
+export default React.memo(IncomeDisplay);

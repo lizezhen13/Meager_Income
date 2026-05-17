@@ -68,4 +68,4 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ input, onChange, disabled = fal
   );
 };
 
-export default SalaryForm;
+export default React.memo(SalaryForm);
