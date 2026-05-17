@@ -37,16 +37,23 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ status, onAction, onReset
         onClick={onAction}
         disabled={!canStart && status === 'idle'}
       >
-        <PrimaryIcon className={styles.buttonIcon} />
-        <span className={styles.buttonLabel}>{BUTTON_TEXT[status]}</span>
+        <span key={`icon-${status}`} className={styles.btnContentWrap}>
+          <PrimaryIcon className={styles.buttonIcon} />
+        </span>
+        <span key={`text-${status}`} className={styles.btnContentWrap}>
+          {BUTTON_TEXT[status]}
+        </span>
       </button>
-      
-      {showReset && (
-        <button className={styles.secondaryBtn} onClick={onReset}>
+
+      <button
+        className={`${styles.secondaryBtn} ${showReset ? styles.secondaryVisible : ''}`}
+        onClick={onReset}
+      >
+        <span className={styles.secondaryContent}>
           <ResetIcon className={styles.secondaryIcon} />
           <span className={styles.buttonLabel}>重置进度</span>
-        </button>
-      )}
+        </span>
+      </button>
     </div>
   );
 };
