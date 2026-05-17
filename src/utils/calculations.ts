@@ -23,8 +23,7 @@ export function calculateIncomeStats(input: SalaryInput): IncomeStats {
   };
 }
 
-export function getDefaultAchievements(): Achievement[] {
-  return [
+const DEFAULT_ACHIEVEMENTS: Achievement[] = [
     { id: 'bus', name: '公交车票到账', threshold: 5, type: 'fixed' },
     { id: 'breakfast', name: '早餐钱到账', threshold: 10, type: 'fixed' },
     { id: 'milktea', name: '解锁一杯奶茶', threshold: 20, type: 'fixed' },
@@ -37,7 +36,10 @@ export function getDefaultAchievements(): Achievement[] {
     { id: 'half', name: '半日打工人', threshold: 50, type: 'ratio' },
     { id: 'three-quarter', name: '快要收工了', threshold: 75, type: 'ratio' },
     { id: 'full', name: '今日工资到账', threshold: 100, type: 'ratio' },
-  ];
+];
+
+export function getDefaultAchievements(): Achievement[] {
+  return DEFAULT_ACHIEVEMENTS;
 }
 
 export function getAchievementThreshold(

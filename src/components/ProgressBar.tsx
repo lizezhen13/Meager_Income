@@ -16,7 +16,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ elapsedSeconds, dailyWorkHour
     <div className={styles.wrapper}>
       <div className={styles.infoRow}>
         <span className={styles.progressText}>
-          已完成 {formatDuration(elapsedSeconds)} / {formatDuration(totalSeconds)}
+          {formatDuration(elapsedSeconds)} / {formatDuration(totalSeconds)}
         </span>
         <span className={styles.progressText}>
           剩余 {formatDuration(remaining)}
@@ -29,4 +29,4 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ elapsedSeconds, dailyWorkHour
   );
 };
 
-export default ProgressBar;
+export default React.memo(ProgressBar);

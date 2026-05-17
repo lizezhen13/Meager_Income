@@ -8,7 +8,7 @@ import {
   getAchievementThreshold
 } from '../utils/calculations';
 
-const UPDATE_INTERVAL = 100; // 更新间隔 100ms
+const UPDATE_INTERVAL = 100;
 
 export function useWorkTimer() {
   const [status, setStatus] = useState<WorkStatus>('idle');
@@ -23,7 +23,7 @@ export function useWorkTimer() {
   
   const startTimeRef = useRef<number | null>(null);
   const pausedElapsedRef = useRef(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const unlockedAchievementsRef = useRef<Set<string>>(new Set());
 
   // 初始化：从 localStorage 加载保存的输入
   useEffect(() => {
@@ -35,13 +35,39 @@ export function useWorkTimer() {
     }
   }, []);
 
-  // 清理定时器
   useEffect(() => {
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+    unlockedAchievementsRef.current = unlockedAchievements;
+  }, [unlockedAchievements]);
+
+  const checkAchievementUnlock = useCallback((amount: number, dailyIncome: number) => {
+    const achievements = getDefaultAchievements();
+    const newlyUnlocked: string[] = [];
+    const currentUnlocked = unlockedAchievementsRef.current;
+
+    achievements.forEach(achievement => {
+      if (!currentUnlocked.has(achievement.id)) {
+        const threshold = getAchievementThreshold(achievement, dailyIncome);
+        if (amount >= threshold) {
+          newlyUnlocked.push(achievement.id);
+        }
       }
-    };
+    });
+
+    if (newlyUnlocked.length > 0) {
+      setUnlockedAchievements(prev => {
+        const updated = new Set(prev);
+        let hasChange = false;
+        newlyUnlocked.forEach(id => {
+          if (!updated.has(id)) {
+            updated.add(id);
+            hasChange = true;
+          }
+        });
+        if (!hasChange) return prev;
+        unlockedAchievementsRef.current = updated;
+        return updated;
+      });
+    }
   }, []);
 
   const updateState = useCallback(() => {
@@ -53,19 +79,17 @@ export function useWorkTimer() {
     
     // 检查是否达到工作时长上限
     if (currentElapsed >= totalWorkSeconds) {
+      startTimeRef.current = null;
+      pausedElapsedRef.current = totalWorkSeconds;
       setElapsedSeconds(totalWorkSeconds);
       setEarnedAmount(incomeStats.dailyIncome);
       setStatus('finished');
       
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-
       // 解锁所有成就
       const allAchievements = getDefaultAchievements();
       const newUnlocked = new Set<string>();
       allAchievements.forEach(a => newUnlocked.add(a.id));
+      unlockedAchievementsRef.current = newUnlocked;
       setUnlockedAchievements(newUnlocked);
       return;
     }
@@ -76,48 +100,30 @@ export function useWorkTimer() {
 
     // 检查成就解锁
     checkAchievementUnlock(earned, incomeStats.dailyIncome);
-  }, [incomeStats, salaryInput.dailyWorkHours]);
+  }, [checkAchievementUnlock, incomeStats, salaryInput.dailyWorkHours]);
 
-  const checkAchievementUnlock = useCallback((amount: number, dailyIncome: number) => {
-    const achievements = getDefaultAchievements();
-    const newlyUnlocked: string[] = [];
+  useEffect(() => {
+    if (status !== 'running') return;
 
-    achievements.forEach(achievement => {
-      if (!unlockedAchievements.has(achievement.id)) {
-        const threshold = getAchievementThreshold(achievement, dailyIncome);
-        if (amount >= threshold) {
-          newlyUnlocked.push(achievement.id);
-        }
-      }
-    });
+    updateState();
+    const intervalId = setInterval(updateState, UPDATE_INTERVAL);
 
-    if (newlyUnlocked.length > 0) {
-      setUnlockedAchievements(prev => {
-        const updated = new Set(prev);
-        newlyUnlocked.forEach(id => updated.add(id));
-        return updated;
-      });
-    }
-  }, [unlockedAchievements]);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [status, updateState]);
 
   const startWork = useCallback(() => {
     if (!incomeStats) return;
     
     startTimeRef.current = Date.now();
     setStatus('running');
-    
-    intervalRef.current = setInterval(updateState, UPDATE_INTERVAL);
-  }, [incomeStats, updateState]);
+  }, [incomeStats]);
 
   const pauseWork = useCallback(() => {
     if (startTimeRef.current) {
       pausedElapsedRef.current += (Date.now() - startTimeRef.current) / 1000;
       startTimeRef.current = null;
-    }
-    
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
     }
     
     setStatus('paused');
@@ -126,21 +132,16 @@ export function useWorkTimer() {
   const resumeWork = useCallback(() => {
     startTimeRef.current = Date.now();
     setStatus('running');
-    
-    intervalRef.current = setInterval(updateState, UPDATE_INTERVAL);
-  }, [updateState]);
+  }, []);
 
   const resetToday = useCallback(() => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-    
     startTimeRef.current = null;
     pausedElapsedRef.current = 0;
     setElapsedSeconds(0);
     setEarnedAmount(0);
-    setUnlockedAchievements(new Set());
+    const emptyAchievements = new Set<string>();
+    unlockedAchievementsRef.current = emptyAchievements;
+    setUnlockedAchievements(emptyAchievements);
     setStatus('idle');
   }, []);
 

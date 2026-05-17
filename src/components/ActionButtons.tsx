@@ -1,6 +1,6 @@
 import React from 'react';
 import { WorkStatus } from '../types';
-import { CheckIcon, PauseIcon, PlayIcon, ResetIcon } from './Icons';
+import { CheckIcon, PauseIcon, PlayIcon, PowerArmIcon, ResetIcon, SleepIcon } from './Icons';
 import styles from './ActionButtons.module.css';
 
 interface ActionButtonsProps {
@@ -19,8 +19,8 @@ const BUTTON_TEXT: Record<WorkStatus, string> = {
 
 const BUTTON_ICON: Record<WorkStatus, React.FC<{ className?: string }>> = {
   idle: PlayIcon,
-  running: PauseIcon,
-  paused: PlayIcon,
+  running: SleepIcon,
+  paused: PowerArmIcon,
   finished: CheckIcon,
 };
 
@@ -44,11 +44,11 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ status, onAction, onReset
       {showReset && (
         <button className={styles.secondaryBtn} onClick={onReset}>
           <ResetIcon className={styles.secondaryIcon} />
-          <span className={styles.buttonLabel}>重置今日进度</span>
+          <span className={styles.buttonLabel}>重置进度</span>
         </button>
       )}
     </div>
   );
 };
 
-export default ActionButtons;
+export default React.memo(ActionButtons);

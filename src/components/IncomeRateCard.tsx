@@ -47,4 +47,4 @@ const IncomeRateCard: React.FC<IncomeRateCardProps> = ({ stats }) => {
   );
 };
 
-export default IncomeRateCard;
+export default React.memo(IncomeRateCard);

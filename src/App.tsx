@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useWorkTimer } from './hooks/useWorkTimer';
 import SalaryForm from './components/SalaryForm';
 import IncomeDisplay from './components/IncomeDisplay';
@@ -34,25 +34,25 @@ const App: React.FC = () => {
   }, [salaryInput]);
 
   // 点击"开始打工" → 切换到工作页并启动
-  const handleStart = () => {
+  const handleStart = useCallback(() => {
     if (!isValid) return;
     setView('working');
     // 延迟一帧确保视图切换后再开始计时，避免首次渲染卡顿
     requestAnimationFrame(() => {
       handleAction();
     });
-  };
+  }, [handleAction, isValid]);
 
   // 重置 → 回到设置页
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     resetToday();
     setView('setup');
-  };
+  }, [resetToday]);
 
   // 返回设置页（不重置进度）
-  const handleBack = () => {
+  const handleBack = useCallback(() => {
     setView('setup');
-  };
+  }, []);
 
   // ====== 设置页 ======
   if (view === 'setup') {
