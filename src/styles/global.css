@@ -71,32 +71,11 @@ body {
 /* Aurora 慢速光带层 */
 body::before,
 body::after {
-  content: '';
-  position: fixed;
-  z-index: 0;
-  pointer-events: none;
-  width: 680px;
-  height: 340px;
-  border-radius: 50%;
-  filter: blur(42px);
-  opacity: 0.5;
-  mix-blend-mode: multiply;
-  will-change: transform;
-  animation: aurora-drift 18s ease-in-out infinite alternate;
-}
-
-body::before {
-  top: 10%;
-  left: -20%;
-  background: linear-gradient(90deg, #62dbc7, #94c8ff, #ffb199);
-}
-
-body::after {
-  right: -24%;
-  bottom: 6%;
+  right: -22%;
+  bottom: 8%;
   background: linear-gradient(90deg, #ffdf8c, #9ce7d4, #b7b6ff);
-  animation-delay: -6s;
-  animation-duration: 22s;
+  animation-delay: -5s;
+  animation-duration: 16s;
 }
 
 /* 柔和径向光斑 — 呼吸漂移 */

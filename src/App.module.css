@@ -87,14 +87,6 @@
   animation: floatIn 720ms var(--ease-out) 160ms both;
 }
 
-.startBtn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 50%);
-}
-
 .startIcon {
   flex: 0 0 auto;
   width: 24px;
