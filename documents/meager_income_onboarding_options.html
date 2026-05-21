@@ -1,0 +1,1984 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meager Income Onboarding 方案对比</title>
+    <style>
+      :root {
+        --page-bg: #eefdf7;
+        --page-text: #123037;
+        --page-muted: #5a7a7a;
+        --mint: #0a9a82;
+        --mint-strong: #0d7a68;
+        --coral: #f2825f;
+        --sky: #94c8ff;
+        --warm: #ffb199;
+        --glass: rgba(255, 255, 255, 0.58);
+        --line: rgba(18, 48, 55, 0.12);
+        --shadow: 0 22px 60px rgba(45, 86, 101, 0.12);
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        color: var(--page-text);
+        background: var(--page-bg);
+        font-family:
+          Nunito, Quicksand, ui-rounded, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "Microsoft YaHei", "PingFang SC", sans-serif;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-width: 320px;
+        min-height: 100%;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        overflow-x: hidden;
+        background:
+          linear-gradient(115deg, rgba(120, 235, 202, 0.22), transparent 28%),
+          linear-gradient(245deg, rgba(255, 177, 153, 0.2), transparent 30%),
+          linear-gradient(135deg, #eefdf7 0%, #f4f8ff 48%, #fff6f0 100%);
+      }
+
+      body::before {
+        position: fixed;
+        inset: -30% -10% auto;
+        height: 76vh;
+        pointer-events: none;
+        background:
+          repeating-linear-gradient(
+            110deg,
+            rgba(255, 255, 255, 0.3) 0 2px,
+            transparent 2px 34px
+          ),
+          linear-gradient(95deg, rgba(10, 154, 130, 0.12), transparent 42%),
+          linear-gradient(290deg, rgba(242, 130, 95, 0.12), transparent 45%);
+        content: "";
+        opacity: 0.72;
+        transform: rotate(-3deg);
+        animation: page-sheen 18s ease-in-out infinite alternate;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .page {
+        position: relative;
+        z-index: 1;
+        width: min(1520px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 34px 0 56px;
+      }
+
+      .intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 24px;
+        align-items: end;
+        margin-bottom: 24px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 12px;
+        color: var(--mint-strong);
+        font-size: 13px;
+        font-weight: 850;
+      }
+
+      .eyebrow::before {
+        width: 28px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--mint), var(--coral));
+        content: "";
+      }
+
+      h1 {
+        max-width: 920px;
+        margin: 0;
+        color: var(--page-text);
+        font-size: clamp(30px, 5vw, 64px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .intro-copy {
+        max-width: 820px;
+        margin: 14px 0 0;
+        color: var(--page-muted);
+        font-size: 15px;
+        line-height: 1.8;
+      }
+
+      .intro-panel {
+        width: min(390px, 100%);
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.52);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.72),
+          0 20px 44px rgba(45, 86, 101, 0.1);
+        padding: 16px;
+        backdrop-filter: blur(18px) saturate(1.24);
+      }
+
+      .intro-panel p {
+        margin: 0 0 12px;
+        color: #486867;
+        font-size: 13px;
+        line-height: 1.65;
+      }
+
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .legend span {
+        border: 1px solid rgba(18, 48, 55, 0.11);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.58);
+        color: #476665;
+        padding: 7px 10px;
+        font-size: 12px;
+        font-weight: 760;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .option {
+        display: flex;
+        min-width: 0;
+        min-height: 100%;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.78);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.62);
+        box-shadow: var(--shadow);
+        animation: card-in 720ms var(--ease) both;
+        backdrop-filter: blur(18px) saturate(1.18);
+      }
+
+      .option:nth-child(2) {
+        animation-delay: 80ms;
+      }
+
+      .option:nth-child(3) {
+        animation-delay: 160ms;
+      }
+
+      .option:nth-child(4) {
+        animation-delay: 240ms;
+      }
+
+      .option:nth-child(5) {
+        animation-delay: 320ms;
+      }
+
+      .option:nth-child(6) {
+        animation-delay: 400ms;
+      }
+
+      .stage {
+        position: relative;
+        min-height: 420px;
+        overflow: hidden;
+        isolation: isolate;
+        color: var(--stage-text);
+        background: var(--stage-bg);
+      }
+
+      .stage::before,
+      .stage::after {
+        position: absolute;
+        pointer-events: none;
+        content: "";
+      }
+
+      .copy-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 92px;
+        min-height: 36px;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.24), transparent 42%),
+          linear-gradient(135deg, var(--mint), var(--mint-strong));
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.34),
+          0 12px 24px rgba(10, 154, 130, 0.16);
+        color: #ffffff;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 850;
+        transition:
+          transform 180ms var(--ease),
+          box-shadow 180ms var(--ease),
+          background 180ms var(--ease);
+      }
+
+      .copy-button:hover {
+        transform: translateY(-1px);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.46),
+          0 16px 30px rgba(10, 154, 130, 0.22);
+      }
+
+      .copy-button:focus-visible {
+        outline: 3px solid rgba(10, 154, 130, 0.24);
+        outline-offset: 2px;
+      }
+
+      .copy-button.is-copied {
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 42%),
+          linear-gradient(135deg, #f2825f, #d96749);
+      }
+
+      .option-body {
+        display: grid;
+        gap: 13px;
+        padding: 17px;
+      }
+
+      .option-head {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .option-title {
+        margin: 0;
+        color: #123037;
+        font-size: 19px;
+        line-height: 1.22;
+        letter-spacing: 0;
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .meta span {
+        border: 1px solid rgba(18, 48, 55, 0.1);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.66);
+        color: #577675;
+        padding: 6px 8px;
+        font-size: 12px;
+        font-weight: 760;
+      }
+
+      .tradeoff {
+        margin: 0;
+        color: #526f70;
+        font-size: 13px;
+        line-height: 1.68;
+      }
+
+      .tradeoff strong {
+        color: #173b3b;
+      }
+
+      .toast {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 20;
+        transform: translateY(14px);
+        border: 1px solid rgba(255, 255, 255, 0.78);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 18px 42px rgba(45, 86, 101, 0.16);
+        color: #123037;
+        opacity: 0;
+        padding: 12px 14px;
+        pointer-events: none;
+        transition:
+          opacity 180ms var(--ease),
+          transform 180ms var(--ease);
+        font-size: 14px;
+        font-weight: 760;
+        backdrop-filter: blur(16px);
+      }
+
+      .toast.is-visible {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      /* Shared mini UI */
+      .brand-row {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .brand-name {
+        display: inline-flex;
+        align-items: center;
+        min-width: 0;
+        gap: 8px;
+        font-weight: 900;
+      }
+
+      .brand-mark {
+        display: inline-grid;
+        width: 32px;
+        height: 32px;
+        flex: 0 0 auto;
+        place-items: center;
+        border-radius: 8px;
+        background: var(--mark-bg, rgba(255, 255, 255, 0.7));
+        color: var(--mark-color, currentColor);
+        font-weight: 950;
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 30px;
+        border: 1px solid var(--pill-line, rgba(255, 255, 255, 0.56));
+        border-radius: 999px;
+        background: var(--pill-bg, rgba(255, 255, 255, 0.42));
+        color: var(--pill-color, currentColor);
+        padding: 6px 10px;
+        font-size: 12px;
+        font-weight: 850;
+        white-space: nowrap;
+      }
+
+      .live-money {
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* Option 1 */
+      .aurora-start {
+        --stage-bg:
+          linear-gradient(125deg, rgba(120, 235, 202, 0.34), transparent 36%),
+          linear-gradient(245deg, rgba(255, 177, 153, 0.3), transparent 38%),
+          linear-gradient(135deg, #eefdf7 0%, #f4f8ff 52%, #fff6f0 100%);
+        --stage-text: #123037;
+        padding: 22px;
+      }
+
+      .aurora-start::before {
+        inset: -22% -24%;
+        background:
+          linear-gradient(110deg, transparent 0 22%, rgba(255, 255, 255, 0.44) 28%, transparent 35%),
+          linear-gradient(295deg, transparent 0 18%, rgba(10, 154, 130, 0.15) 24%, transparent 31%),
+          linear-gradient(20deg, transparent 0 48%, rgba(242, 130, 95, 0.16) 55%, transparent 64%);
+        transform: rotate(-7deg);
+        animation: ribbon-drift 12s ease-in-out infinite alternate;
+      }
+
+      .aurora-start::after {
+        inset: auto 20px 24px 20px;
+        height: 82px;
+        border: 1px solid rgba(255, 255, 255, 0.62);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.28);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.64);
+        backdrop-filter: blur(16px);
+      }
+
+      .aurora-hero {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        min-height: 376px;
+        align-content: center;
+        justify-items: center;
+        text-align: center;
+      }
+
+      .aurora-kicker {
+        margin: 0 0 10px;
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.42);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76);
+        color: #4f7773;
+        padding: 7px 12px;
+        font-size: 12px;
+        font-weight: 850;
+        backdrop-filter: blur(12px);
+      }
+
+      .aurora-title {
+        max-width: 380px;
+        margin: 0;
+        font-size: clamp(34px, 5vw, 54px);
+        line-height: 0.96;
+        letter-spacing: 0;
+      }
+
+      .aurora-sub {
+        max-width: 330px;
+        margin: 13px 0 0;
+        color: #5a7a7a;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .aurora-input {
+        display: grid;
+        width: min(320px, 100%);
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+        margin-top: 22px;
+      }
+
+      .glass-field,
+      .glass-cta {
+        min-height: 48px;
+        border: 1px solid rgba(255, 255, 255, 0.75);
+        border-radius: 999px;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.74),
+          0 14px 32px rgba(45, 86, 101, 0.1);
+      }
+
+      .glass-field {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.48);
+        color: #5d7777;
+        padding: 0 16px;
+        font-size: 13px;
+        font-weight: 800;
+        backdrop-filter: blur(16px);
+      }
+
+      .glass-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.28), transparent 42%),
+          linear-gradient(135deg, #0cc4a4, #0a9a82);
+        color: #ffffff;
+        padding: 0 18px;
+        font-size: 13px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      .salary-chip {
+        position: absolute;
+        z-index: 3;
+        display: grid;
+        min-width: 116px;
+        gap: 2px;
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.48);
+        box-shadow: 0 16px 36px rgba(45, 86, 101, 0.11);
+        color: #123037;
+        padding: 11px 12px;
+        backdrop-filter: blur(16px);
+        animation: chip-float 4.6s ease-in-out infinite;
+      }
+
+      .salary-chip span {
+        color: #63807f;
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      .salary-chip b {
+        font-size: 18px;
+        line-height: 1.1;
+      }
+
+      .salary-chip.one {
+        top: 76px;
+        left: 26px;
+      }
+
+      .salary-chip.two {
+        right: 25px;
+        bottom: 92px;
+        animation-delay: -2s;
+      }
+
+      .salary-chip.three {
+        top: 112px;
+        right: 44px;
+        min-width: 94px;
+        animation-delay: -3.1s;
+      }
+
+      /* Option 2 */
+      .cockpit {
+        --stage-bg:
+          repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 44px),
+          linear-gradient(140deg, #092b2b 0%, #0d3e42 48%, #142a3b 100%);
+        --stage-text: #dffbf3;
+        --mark-bg: #70ffd6;
+        --mark-color: #092b2b;
+        --pill-bg: rgba(112, 255, 214, 0.12);
+        --pill-line: rgba(112, 255, 214, 0.28);
+        --pill-color: #9fffe4;
+        padding: 20px;
+      }
+
+      .cockpit::before {
+        inset: 0;
+        background:
+          linear-gradient(90deg, transparent, rgba(112, 255, 214, 0.08), transparent),
+          repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 7px);
+        animation: scanline 5.8s linear infinite;
+      }
+
+      .cockpit-grid {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        height: 100%;
+        min-height: 380px;
+        grid-template-columns: 1.08fr 0.82fr;
+        grid-template-rows: auto 1fr auto;
+        gap: 12px;
+      }
+
+      .cockpit .brand-row {
+        grid-column: 1 / -1;
+      }
+
+      .panel {
+        border: 1px solid rgba(112, 255, 214, 0.2);
+        border-radius: 8px;
+        background: rgba(5, 18, 20, 0.62);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.06),
+          0 0 28px rgba(112, 255, 214, 0.08);
+        backdrop-filter: blur(10px);
+      }
+
+      .cockpit-main {
+        display: grid;
+        align-content: center;
+        padding: 17px;
+      }
+
+      .panel-label {
+        margin: 0 0 8px;
+        color: rgba(223, 251, 243, 0.66);
+        font-size: 12px;
+        font-weight: 820;
+        text-transform: uppercase;
+      }
+
+      .cockpit-money {
+        margin: 0;
+        color: #ffffff;
+        font-size: clamp(34px, 4.4vw, 52px);
+        line-height: 1;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      .cockpit-caption {
+        max-width: 280px;
+        margin: 10px 0 0;
+        color: rgba(223, 251, 243, 0.78);
+        font-size: 12px;
+        line-height: 1.62;
+      }
+
+      .cockpit-bars {
+        display: grid;
+        gap: 9px;
+        margin-top: 18px;
+      }
+
+      .cockpit-bar {
+        position: relative;
+        height: 8px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(112, 255, 214, 0.1);
+      }
+
+      .cockpit-bar span {
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: var(--w);
+        border-radius: inherit;
+        background: linear-gradient(90deg, #70ffd6, #ffad66);
+        animation: fill-breathe 4.4s ease-in-out infinite;
+      }
+
+      .cockpit-side {
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+        gap: 10px;
+      }
+
+      .cockpit-stat {
+        display: grid;
+        align-content: center;
+        padding: 13px;
+      }
+
+      .cockpit-stat b {
+        color: #ffffff;
+        font-size: 21px;
+        line-height: 1.15;
+      }
+
+      .radar {
+        position: relative;
+        min-height: 100px;
+        overflow: hidden;
+        grid-column: 1 / -1;
+      }
+
+      .radar::before {
+        position: absolute;
+        inset: 12px auto auto 18px;
+        width: 74px;
+        height: 74px;
+        border: 1px solid rgba(112, 255, 214, 0.24);
+        border-radius: 50%;
+        background:
+          linear-gradient(90deg, transparent 49%, rgba(112, 255, 214, 0.22) 50%, transparent 51%),
+          linear-gradient(0deg, transparent 49%, rgba(112, 255, 214, 0.16) 50%, transparent 51%);
+        content: "";
+      }
+
+      .radar::after {
+        position: absolute;
+        inset: 12px auto auto 18px;
+        width: 74px;
+        height: 74px;
+        border-radius: 50%;
+        background: conic-gradient(from 0deg, rgba(112, 255, 214, 0.52), transparent 88deg);
+        content: "";
+        animation: radar-spin 3.2s linear infinite;
+      }
+
+      .radar-copy {
+        position: relative;
+        z-index: 2;
+        margin-left: 106px;
+        padding: 16px 18px 14px 0;
+      }
+
+      .radar-copy p {
+        margin: 0;
+        color: rgba(223, 251, 243, 0.7);
+        font-size: 12px;
+        line-height: 1.55;
+      }
+
+      .ticker-line {
+        position: absolute;
+        z-index: 1;
+        right: -220px;
+        bottom: 14px;
+        display: flex;
+        gap: 22px;
+        color: rgba(159, 255, 228, 0.42);
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 12px;
+        white-space: nowrap;
+        animation: ticker 13s linear infinite;
+      }
+
+      /* Option 3 */
+      .theater {
+        --stage-bg:
+          linear-gradient(90deg, rgba(242, 130, 95, 0.14) 1px, transparent 1px),
+          linear-gradient(180deg, #fffaf1 0%, #eefaf7 100%);
+        --stage-text: #2a332f;
+        background-size: 22px 22px, 100% 100%;
+        padding: 20px;
+      }
+
+      .theater::before {
+        inset: -8% auto -8% -20px;
+        width: 94px;
+        background:
+          repeating-linear-gradient(
+            90deg,
+            rgba(242, 130, 95, 0.28) 0 13px,
+            rgba(255, 255, 255, 0.4) 13px 26px
+          );
+        transform: skewX(-8deg);
+        animation: curtain-sway 5s ease-in-out infinite alternate;
+      }
+
+      .theater::after {
+        inset: -8% -20px -8% auto;
+        width: 94px;
+        background:
+          repeating-linear-gradient(
+            90deg,
+            rgba(10, 154, 130, 0.2) 0 13px,
+            rgba(255, 255, 255, 0.4) 13px 26px
+          );
+        transform: skewX(8deg);
+        animation: curtain-sway 5s ease-in-out infinite alternate-reverse;
+      }
+
+      .comic {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        min-height: 380px;
+        grid-template-columns: 0.88fr 1.12fr;
+        grid-template-rows: auto 1fr auto;
+        gap: 11px;
+      }
+
+      .theater .brand-row {
+        grid-column: 1 / -1;
+      }
+
+      .theater .brand-mark {
+        background: #f2825f;
+        color: #ffffff;
+      }
+
+      .speech,
+      .panel-card,
+      .mini-panel {
+        border: 2px solid rgba(42, 51, 47, 0.72);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.78);
+        box-shadow: 5px 5px 0 rgba(42, 51, 47, 0.16);
+      }
+
+      .speech {
+        position: relative;
+        padding: 16px;
+      }
+
+      .speech::after {
+        position: absolute;
+        right: 30px;
+        bottom: -12px;
+        width: 22px;
+        height: 22px;
+        border-right: 2px solid rgba(42, 51, 47, 0.72);
+        border-bottom: 2px solid rgba(42, 51, 47, 0.72);
+        background: rgba(255, 255, 255, 0.78);
+        content: "";
+        transform: rotate(45deg);
+      }
+
+      .speech h3 {
+        margin: 0;
+        color: #173a34;
+        font-size: 24px;
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .speech p {
+        margin: 10px 0 0;
+        color: #5d6861;
+        font-size: 12px;
+        line-height: 1.55;
+      }
+
+      .panel-card {
+        display: grid;
+        align-content: center;
+        padding: 17px;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(255, 244, 222, 0.78));
+      }
+
+      .comic-money {
+        margin: 0;
+        color: #0d7a68;
+        font-size: clamp(32px, 4vw, 48px);
+        line-height: 1;
+        font-weight: 950;
+      }
+
+      .stamp {
+        display: inline-grid;
+        width: 84px;
+        height: 84px;
+        place-items: center;
+        justify-self: end;
+        border: 3px solid #f2825f;
+        border-radius: 50%;
+        color: #d96749;
+        font-size: 13px;
+        font-weight: 950;
+        transform: rotate(-11deg);
+        animation: stamp-pop 2.6s ease-in-out infinite;
+      }
+
+      .mini-row {
+        display: grid;
+        grid-column: 1 / -1;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+
+      .mini-panel {
+        min-height: 74px;
+        padding: 11px;
+      }
+
+      .mini-panel span {
+        color: #66736d;
+        font-size: 11px;
+        font-weight: 820;
+      }
+
+      .mini-panel b {
+        display: block;
+        margin-top: 6px;
+        color: #24332f;
+        font-size: 16px;
+      }
+
+      /* Option 4 */
+      .raceway {
+        --stage-bg:
+          linear-gradient(90deg, rgba(255, 255, 255, 0.42), transparent 18%),
+          linear-gradient(160deg, #ebfff5 0%, #f4f8ff 52%, #fff1e9 100%);
+        --stage-text: #143336;
+        padding: 20px;
+      }
+
+      .raceway::before {
+        inset: 94px -15% auto;
+        height: 148px;
+        border-top: 2px dashed rgba(10, 154, 130, 0.28);
+        border-bottom: 2px dashed rgba(242, 130, 95, 0.28);
+        background:
+          linear-gradient(100deg, transparent 0 20%, rgba(255, 255, 255, 0.62) 32%, transparent 48%),
+          linear-gradient(90deg, rgba(10, 154, 130, 0.08), rgba(148, 200, 255, 0.1), rgba(242, 130, 95, 0.08));
+        transform: rotate(-8deg);
+        animation: track-slide 7.4s linear infinite;
+      }
+
+      .race-inner {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        min-height: 380px;
+        align-content: space-between;
+      }
+
+      .race-headline {
+        max-width: 330px;
+        margin: 36px 0 0;
+      }
+
+      .race-headline h3 {
+        margin: 0;
+        color: #123037;
+        font-size: clamp(30px, 4.2vw, 48px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .race-headline p {
+        max-width: 280px;
+        margin: 12px 0 0;
+        color: #5c7a78;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .track {
+        position: relative;
+        height: 138px;
+        margin-top: 18px;
+      }
+
+      .track-line {
+        position: absolute;
+        right: 8px;
+        bottom: 54px;
+        left: 8px;
+        height: 12px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      }
+
+      .track-line::before {
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 62%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #0a9a82, #94c8ff, #f2825f);
+        content: "";
+        animation: track-pulse 3.6s ease-in-out infinite;
+      }
+
+      .runner {
+        position: absolute;
+        bottom: 39px;
+        left: 58%;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 42px;
+        border: 1px solid rgba(255, 255, 255, 0.76);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.76);
+        box-shadow: 0 14px 30px rgba(45, 86, 101, 0.14);
+        color: #123037;
+        padding: 8px 12px;
+        transform: translateX(-50%);
+        animation: runner-bob 2.7s ease-in-out infinite;
+      }
+
+      .runner b {
+        color: #0d7a68;
+      }
+
+      .milestones {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        align-items: end;
+        gap: 8px;
+      }
+
+      .milestone {
+        display: grid;
+        gap: 7px;
+        justify-items: center;
+        color: #587775;
+        font-size: 11px;
+        font-weight: 850;
+      }
+
+      .flag {
+        width: 42px;
+        height: 48px;
+        border: 1px solid rgba(255, 255, 255, 0.76);
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.46)),
+          linear-gradient(135deg, rgba(10, 154, 130, 0.16), rgba(242, 130, 95, 0.16));
+        box-shadow: 0 10px 22px rgba(45, 86, 101, 0.1);
+      }
+
+      .milestone:nth-child(2) .flag,
+      .milestone:nth-child(3) .flag {
+        transform: translateY(-22px);
+      }
+
+      /* Option 5 */
+      .lab {
+        --stage-bg:
+          conic-gradient(from 60deg at 30% 32%, #4be0b5, #94c8ff, #ffb199, #ffe4a8, #4be0b5);
+        --stage-text: #111923;
+        padding: 20px;
+      }
+
+      .lab::before,
+      .lab::after {
+        inset: -36%;
+        background:
+          linear-gradient(120deg, rgba(255, 255, 255, 0.58), transparent 28%, rgba(18, 48, 55, 0.18) 62%, transparent 76%),
+          conic-gradient(from 180deg, #3ae2c0, #94c8ff, #ff7e6b, #ffe36d, #3ae2c0);
+        filter: blur(22px) saturate(1.2);
+        opacity: 0.78;
+        animation: mesh-turn 12s linear infinite;
+      }
+
+      .lab::after {
+        filter: blur(8px) saturate(1.5);
+        opacity: 0.26;
+        animation-direction: reverse;
+        animation-duration: 8s;
+      }
+
+      .lab-grid {
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.22) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+        background-size: 38px 38px;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.84), rgba(0, 0, 0, 0.28));
+        animation: mesh-grid 5.8s ease-in-out infinite alternate;
+      }
+
+      .lab-content {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        min-height: 380px;
+        align-content: space-between;
+      }
+
+      .lab .brand-mark,
+      .lab .status-pill {
+        background: rgba(255, 255, 255, 0.68);
+        color: #111923;
+        backdrop-filter: blur(12px);
+      }
+
+      .lab-center {
+        display: grid;
+        justify-items: start;
+        width: min(350px, 100%);
+      }
+
+      .lab-title {
+        margin: 0 0 12px;
+        color: #111923;
+        font-size: clamp(36px, 5.2vw, 62px);
+        line-height: 0.92;
+        letter-spacing: 0;
+        text-wrap: balance;
+      }
+
+      .lab-money {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.52);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.46);
+        box-shadow: 0 20px 42px rgba(18, 31, 42, 0.16);
+        padding: 12px 14px;
+        backdrop-filter: blur(18px) saturate(1.4);
+      }
+
+      .lab-money b {
+        font-size: 34px;
+        line-height: 1;
+      }
+
+      .lab-money span {
+        color: rgba(17, 25, 35, 0.68);
+        font-size: 12px;
+        font-weight: 850;
+      }
+
+      .lab-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .lab-tags span {
+        border: 1px solid rgba(255, 255, 255, 0.46);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.42);
+        color: #111923;
+        padding: 8px 10px;
+        font-size: 12px;
+        font-weight: 860;
+        backdrop-filter: blur(12px);
+        animation: tag-float 3.8s ease-in-out infinite;
+      }
+
+      .lab-tags span:nth-child(2) {
+        animation-delay: -1s;
+      }
+
+      .lab-tags span:nth-child(3) {
+        animation-delay: -2s;
+      }
+
+      /* Option 6 */
+      .receipt {
+        --stage-bg:
+          linear-gradient(90deg, rgba(10, 154, 130, 0.08) 1px, transparent 1px),
+          linear-gradient(180deg, #fffaf0 0%, #eefbf5 100%);
+        --stage-text: #26342f;
+        background-size: 18px 18px, 100% 100%;
+        padding: 20px;
+      }
+
+      .receipt::before {
+        inset: 0;
+        background:
+          linear-gradient(100deg, transparent 0 38%, rgba(255, 255, 255, 0.62) 46%, transparent 56%),
+          repeating-linear-gradient(0deg, rgba(38, 52, 47, 0.05) 0 1px, transparent 1px 36px);
+        animation: receipt-light 8s ease-in-out infinite alternate;
+      }
+
+      .receipt-wrap {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        min-height: 380px;
+        grid-template-columns: 0.96fr 1.04fr;
+        gap: 14px;
+        align-items: stretch;
+      }
+
+      .receipt-left {
+        display: grid;
+        align-content: space-between;
+      }
+
+      .receipt-title {
+        margin: 0;
+        color: #22332e;
+        font-size: clamp(30px, 4vw, 46px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .receipt-copy {
+        margin: 12px 0 0;
+        color: #68756f;
+        font-size: 12px;
+        line-height: 1.62;
+      }
+
+      .receipt-cta {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        border: 1px solid rgba(255, 255, 255, 0.74);
+        border-radius: 999px;
+        background: linear-gradient(135deg, #0cc4a4, #0a9a82);
+        box-shadow: 0 14px 28px rgba(10, 154, 130, 0.18);
+        color: #ffffff;
+        padding: 0 15px;
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      .paper-roll {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(35, 51, 46, 0.12);
+        border-radius: 8px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 252, 241, 0.9));
+        box-shadow:
+          0 18px 36px rgba(75, 82, 73, 0.14),
+          inset 0 1px 0 #ffffff;
+      }
+
+      .paper-roll::before,
+      .paper-roll::after {
+        position: absolute;
+        right: 0;
+        left: 0;
+        z-index: 2;
+        height: 38px;
+        content: "";
+      }
+
+      .paper-roll::before {
+        top: 0;
+        background: linear-gradient(180deg, #fffdf7, transparent);
+      }
+
+      .paper-roll::after {
+        bottom: 0;
+        background: linear-gradient(0deg, #fffdf7, transparent);
+      }
+
+      .receipt-lines {
+        display: grid;
+        gap: 11px;
+        padding: 18px;
+        animation: receipt-roll 10s linear infinite;
+      }
+
+      .receipt-line {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border-bottom: 1px dashed rgba(38, 52, 47, 0.16);
+        color: #52635d;
+        padding-bottom: 10px;
+        font-size: 12px;
+        font-weight: 760;
+      }
+
+      .receipt-line b {
+        color: #143336;
+        font-size: 15px;
+        white-space: nowrap;
+      }
+
+      .receipt-total {
+        display: grid;
+        gap: 4px;
+        border: 1px solid rgba(10, 154, 130, 0.16);
+        border-radius: 8px;
+        background: rgba(238, 253, 247, 0.8);
+        color: #0d7a68;
+        padding: 13px;
+      }
+
+      .receipt-total span {
+        color: #63736e;
+        font-size: 11px;
+        font-weight: 850;
+      }
+
+      .receipt-total b {
+        font-size: 30px;
+        line-height: 1;
+      }
+
+      @keyframes page-sheen {
+        from {
+          transform: translate3d(-3%, -2%, 0) rotate(-3deg);
+        }
+        to {
+          transform: translate3d(4%, 3%, 0) rotate(2deg);
+        }
+      }
+
+      @keyframes card-in {
+        from {
+          opacity: 0;
+          transform: translateY(18px) scale(0.985);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes ribbon-drift {
+        from {
+          transform: translate3d(-3%, -2%, 0) rotate(-7deg);
+        }
+        to {
+          transform: translate3d(4%, 3%, 0) rotate(-2deg);
+        }
+      }
+
+      @keyframes chip-float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes scanline {
+        from {
+          background-position:
+            -160px 0,
+            0 0;
+        }
+        to {
+          background-position:
+            260px 0,
+            0 48px;
+        }
+      }
+
+      @keyframes fill-breathe {
+        0%,
+        100% {
+          transform: scaleX(0.94);
+          filter: brightness(1);
+        }
+        50% {
+          transform: scaleX(1);
+          filter: brightness(1.18);
+        }
+      }
+
+      @keyframes radar-spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes ticker {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-320px);
+        }
+      }
+
+      @keyframes curtain-sway {
+        from {
+          transform: translateX(-6px) skewX(-8deg);
+        }
+        to {
+          transform: translateX(6px) skewX(-4deg);
+        }
+      }
+
+      @keyframes stamp-pop {
+        0%,
+        72%,
+        100% {
+          transform: rotate(-11deg) scale(1);
+        }
+        82% {
+          transform: rotate(-8deg) scale(1.08);
+        }
+      }
+
+      @keyframes track-slide {
+        from {
+          background-position:
+            -200px 0,
+            0 0;
+        }
+        to {
+          background-position:
+            220px 0,
+            0 0;
+        }
+      }
+
+      @keyframes track-pulse {
+        0%,
+        100% {
+          width: 54%;
+        }
+        50% {
+          width: 68%;
+        }
+      }
+
+      @keyframes runner-bob {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(-8px);
+        }
+      }
+
+      @keyframes mesh-turn {
+        from {
+          transform: rotate(0deg) scale(1);
+        }
+        to {
+          transform: rotate(360deg) scale(1.08);
+        }
+      }
+
+      @keyframes mesh-grid {
+        from {
+          background-position: 0 0;
+        }
+        to {
+          background-position: 38px 22px;
+        }
+      }
+
+      @keyframes tag-float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+
+      @keyframes receipt-light {
+        from {
+          background-position:
+            -120px 0,
+            0 0;
+        }
+        to {
+          background-position:
+            180px 0,
+            0 34px;
+        }
+      }
+
+      @keyframes receipt-roll {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-94px);
+        }
+      }
+
+      @media (max-width: 1240px) {
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 820px) {
+        .page {
+          width: min(100% - 24px, 620px);
+          padding-top: 24px;
+        }
+
+        .intro {
+          grid-template-columns: 1fr;
+        }
+
+        .intro-panel {
+          width: 100%;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .stage {
+          min-height: 390px;
+        }
+
+        .cockpit-grid,
+        .comic,
+        .receipt-wrap {
+          grid-template-columns: 1fr;
+        }
+
+        .cockpit-side {
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: none;
+        }
+
+        .radar {
+          min-height: 86px;
+        }
+
+        .receipt-left {
+          gap: 16px;
+        }
+      }
+
+      @media (max-width: 520px) {
+        h1 {
+          font-size: 34px;
+        }
+
+        .option-head {
+          display: grid;
+        }
+
+        .copy-button {
+          width: 100%;
+        }
+
+        .aurora-input,
+        .mini-row,
+        .cockpit-side {
+          grid-template-columns: 1fr;
+        }
+
+        .salary-chip.three {
+          display: none;
+        }
+
+        .salary-chip.one {
+          top: 76px;
+          left: 14px;
+        }
+
+        .salary-chip.two {
+          right: 14px;
+          bottom: 78px;
+        }
+
+        .race-headline {
+          margin-top: 26px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Meager Income onboarding direction board</p>
+          <h1 id="page-title">6 个可选开场，把“每秒到账”做得更有冲击力。</h1>
+          <p class="intro-copy">
+            这些方案都围绕实时工资、工作进度和趣味成就展开，保留现有应用的薄荷绿、水蓝、暖珊瑚和玻璃感基因，但在布局、语气、信息密度和动效强度上刻意拉开距离，方便直接做方向判断。
+          </p>
+        </div>
+        <aside class="intro-panel" aria-label="对比维度">
+          <p>每个方案下方都标出取舍，并提供复制按钮。按钮会复制该方向的完整描述，确定方向后可以直接发回来。</p>
+          <div class="legend">
+            <span>实时金额</span>
+            <span>进度可视化</span>
+            <span>成就解锁</span>
+            <span>强动效</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="grid" aria-label="onboarding 方案网格">
+        <article class="option">
+          <div class="stage aurora-start" aria-label="方案 1 晨光玻璃启动预览">
+            <div class="salary-chip one">
+              <span>每分钟</span>
+              <b class="live-money" data-base="0.67" data-decimals="2">¥ 0.67</b>
+            </div>
+            <div class="salary-chip two">
+              <span>今日已赚</span>
+              <b class="live-money" data-base="48.26" data-decimals="2">¥ 48.26</b>
+            </div>
+            <div class="salary-chip three">
+              <span>进度</span>
+              <b>14.9%</b>
+            </div>
+            <div class="brand-row">
+              <div class="brand-name"><span class="brand-mark">¥</span>Meager Income</div>
+              <span class="status-pill">轻量开始</span>
+            </div>
+            <div class="aurora-hero">
+              <p class="aurora-kicker">碎银几两，实时看见</p>
+              <h2 class="aurora-title">让每一秒都变成可见收入</h2>
+              <p class="aurora-sub">输入月薪和工时，下一秒开始看见自己的工作时间正在变成钱。</p>
+              <div class="aurora-input">
+                <div class="glass-field"><span>¥</span><span>月薪与工时</span></div>
+                <div class="glass-cta">开始打工</div>
+              </div>
+            </div>
+          </div>
+          <div class="option-body">
+            <div class="option-head">
+              <h2 class="option-title">01 晨光玻璃启动</h2>
+              <button class="copy-button" type="button" data-copy="aurora">复制方案</button>
+            </div>
+            <div class="meta">
+              <span>布局：中心英雄区</span>
+              <span>语气：轻松可信</span>
+              <span>信息密度：低</span>
+            </div>
+            <p class="tradeoff">
+              <strong>取舍：</strong>最贴近现有 Aurora Glass，迁移成本低，第一眼轻盈顺滑；但叙事和功能解释较克制，需要后续页面承担更多细节。
+            </p>
+          </div>
+        </article>
+
+        <article class="option">
+          <div class="stage cockpit" aria-label="方案 2 收入驾驶舱预览">
+            <div class="ticker-line">
+              <span>¥0.0112/S</span><span>SESSION 01:11:49</span><span>GOAL 14.9%</span><span>UNLOCK MILK TEA</span>
+              <span>¥0.0112/S</span>
+            </div>
+            <div class="cockpit-grid">
+              <div class="brand-row">
+                <div class="brand-name"><span class="brand-mark">¥</span>Income Cockpit</div>
+                <span class="status-pill">实时监控</span>
+              </div>
+              <section class="panel cockpit-main">
+                <p class="panel-label">Current earning</p>
+                <p class="cockpit-money live-money" data-base="48.26" data-decimals="2">¥ 48.26</p>
+                <p class="cockpit-caption">把月薪拆成秒薪、分薪、时薪，进入工作后持续刷新。</p>
+                <div class="cockpit-bars">
+                  <div class="cockpit-bar"><span style="--w: 72%"></span></div>
+                  <div class="cockpit-bar"><span style="--w: 46%"></span></div>
+                </div>
+              </section>
+              <div class="cockpit-side">
+                <section class="panel cockpit-stat">
+                  <p class="panel-label">Per hour</p>
+                  <b>¥ 40.32</b>
+                </section>
+                <section class="panel cockpit-stat">
+                  <p class="panel-label">Timer</p>
+                  <b>01:11:49</b>
+                </section>
+                <section class="panel cockpit-stat">
+                  <p class="panel-label">Progress</p>
+                  <b>14.9%</b>
+                </section>
+              </div>
+              <section class="panel radar">
+                <div class="radar-copy">
+                  <p>更适合把 onboarding 直接做成“即将进入的主界面预告”，让用户立刻理解核心指标。</p>
+                </div>
+              </section>
+            </div>
+          </div>
+          <div class="option-body">
+            <div class="option-head">
+              <h2 class="option-title">02 收入驾驶舱</h2>
+              <button class="copy-button" type="button" data-copy="cockpit">复制方案</button>
+            </div>
+            <div class="meta">
+              <span>布局：仪表盘预告</span>
+              <span>语气：理性直接</span>
+              <span>信息密度：高</span>
+            </div>
+            <p class="tradeoff">
+              <strong>取舍：</strong>解释效率最高，适合希望用户一进来就懂产品价值；但视觉更偏工具，需要控制科技感，避免偏离轻松趣味。
+            </p>
+          </div>
+        </article>
+
+        <article class="option">
+          <div class="stage theater" aria-label="方案 3 打工小剧场预览">
+            <div class="comic">
+              <div class="brand-row">
+                <div class="brand-name"><span class="brand-mark">¥</span>打工小剧场</div>
+                <span class="status-pill">今日开演</span>
+              </div>
+              <section class="speech">
+                <h3>今天先赚一杯奶茶。</h3>
+                <p>把漫长工时拆成一个个小奖励，工资进度不再只是数字。</p>
+              </section>
+              <section class="panel-card">
+                <p class="panel-label">主角当前收入</p>
+                <p class="comic-money live-money" data-base="20.08" data-decimals="2">¥ 20.08</p>
+                <span class="stamp">已解锁</span>
+              </section>
+              <div class="mini-row">
+                <div class="mini-panel"><span>第一幕</span><b>公交车票到账</b></div>
+                <div class="mini-panel"><span>第二幕</span><b>早餐钱到账</b></div>
+                <div class="mini-panel"><span>下一幕</span><b>午饭基金</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="option-body">
+            <div class="option-head">
+              <h2 class="option-title">03 打工小剧场</h2>
+              <button class="copy-button" type="button" data-copy="theater">复制方案</button>
+            </div>
+            <div class="meta">
+              <span>布局：漫画分镜</span>
+              <span>语气：吐槽幽默</span>
+              <span>信息密度：中低</span>
+            </div>
+            <p class="tradeoff">
+              <strong>取舍：</strong>趣味性和记忆点最强，成就系统可以自然变成剧情推进；但需要更高文案质量，否则容易显得花哨。
+            </p>
+          </div>
+        </article>
+
+        <article class="option">
+          <div class="stage raceway" aria-label="方案 4 今日进度赛道预览">
+            <div class="race-inner">
+              <div class="brand-row">
+                <div class="brand-name"><span class="brand-mark">¥</span>今日进度赛道</div>
+                <span class="status-pill">14.9%</span>
+              </div>
+              <div class="race-headline">
+                <h3>从公交车票，跑到今日工资到账。</h3>
+                <p>把当天收入做成一条可推进的奖励路线，用户一眼知道下一站是什么。</p>
+              </div>
+              <div class="track" aria-label="成就路线">
+                <div class="milestones">
+                  <div class="milestone"><span class="flag"></span><span>¥5</span></div>
+                  <div class="milestone"><span class="flag"></span><span>¥20</span></div>
+                  <div class="milestone"><span class="flag"></span><span>50%</span></div>
+                  <div class="milestone"><span class="flag"></span><span>100%</span></div>
+                </div>
+                <div class="track-line"></div>
+                <div class="runner">已赚 <b class="live-money" data-base="48.26" data-decimals="2">¥ 48.26</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="option-body">
+            <div class="option-head">
+              <h2 class="option-title">04 今日进度赛道</h2>
+              <button class="copy-button" type="button" data-copy="raceway">复制方案</button>
+            </div>
+            <div class="meta">
+              <span>布局：路线进度</span>
+              <span>语气：目标激励</span>
+              <span>信息密度：中</span>
+            </div>
+            <p class="tradeoff">
+              <strong>取舍：</strong>很适合突出成就和“下一步奖励”，能强化持续使用；但起始输入区会相对弱，需要和主 CTA 合并得更巧。
+            </p>
+          </div>
+        </article>
+
+        <article class="option">
+          <div class="stage lab" aria-label="方案 5 实时粒子实验室预览">
+            <div class="lab-grid"></div>
+            <div class="lab-content">
+              <div class="brand-row">
+                <div class="brand-name"><span class="brand-mark">¥</span>Income Lab</div>
+                <span class="status-pill">每秒反应中</span>
+              </div>
+              <div class="lab-center">
+                <h3 class="lab-title">把时间反应成钱。</h3>
+                <div class="lab-money">
+                  <b class="live-money" data-base="48.26" data-decimals="2">¥ 48.26</b>
+                  <span>live</span>
+                </div>
+              </div>
+              <div class="lab-tags">
+                <span>秒薪 ¥0.0112</span>
+                <span>工时 8h</span>
+                <span>解锁奶茶</span>
+                <span>今日 14.9%</span>
+              </div>
+            </div>
+          </div>
+          <div class="option-body">
+            <div class="option-head">
+              <h2 class="option-title">05 实时粒子实验室</h2>
+              <button class="copy-button" type="button" data-copy="lab">复制方案</button>
+            </div>
+            <div class="meta">
+              <span>布局：全屏动效场</span>
+              <span>语气：高能酷感</span>
+              <span>信息密度：低</span>
+            </div>
+            <p class="tradeoff">
+              <strong>取舍：</strong>视觉冲击最强，适合作为首次打开的惊艳开场；但抽象动效占比高，必须保证输入和按钮落点非常清楚。
+            </p>
+          </div>
+        </article>
+
+        <article class="option">
+          <div class="stage receipt" aria-label="方案 6 发薪小票机预览">
+            <div class="receipt-wrap">
+              <div class="receipt-left">
+                <div class="brand-row">
+                  <div class="brand-name"><span class="brand-mark">¥</span>发薪小票机</div>
+                </div>
+                <div>
+                  <h3 class="receipt-title">今天的碎银，自动出票。</h3>
+                  <p class="receipt-copy">用收据式叙事解释秒薪、分薪、成就门槛，既有趣又不牺牲信息清晰度。</p>
+                </div>
+                <div class="receipt-cta">生成今日小票</div>
+              </div>
+              <div class="paper-roll">
+                <div class="receipt-lines">
+                  <div class="receipt-total">
+                    <span>当前已赚</span>
+                    <b class="live-money" data-base="48.26" data-decimals="2">¥ 48.26</b>
+                  </div>
+                  <div class="receipt-line"><span>每秒收入</span><b>¥0.0112</b></div>
+                  <div class="receipt-line"><span>每分钟收入</span><b>¥0.67</b></div>
+                  <div class="receipt-line"><span>已工作</span><b>01:11:49</b></div>
+                  <div class="receipt-line"><span>下个成就</span><b>午饭基金</b></div>
+                  <div class="receipt-line"><span>今日进度</span><b>14.9%</b></div>
+                  <div class="receipt-total">
+                    <span>当前已赚</span>
+                    <b>¥ 48.26</b>
+                  </div>
+                  <div class="receipt-line"><span>每秒收入</span><b>¥0.0112</b></div>
+                  <div class="receipt-line"><span>每分钟收入</span><b>¥0.67</b></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="option-body">
+            <div class="option-head">
+              <h2 class="option-title">06 发薪小票机</h2>
+              <button class="copy-button" type="button" data-copy="receipt">复制方案</button>
+            </div>
+            <div class="meta">
+              <span>布局：小票+说明</span>
+              <span>语气：克制有趣</span>
+              <span>信息密度：中高</span>
+            </div>
+            <p class="tradeoff">
+              <strong>取舍：</strong>信息表达完整，和“收入被记录下来”的主旨很贴；但艺术性相对内敛，需要靠纸张动效和微文案增加吸引力。
+            </p>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <div class="toast" role="status" aria-live="polite">方案已复制</div>
+
+    <script>
+      const schemes = {
+        aurora: {
+          name: "01 晨光玻璃启动",
+          layout: "中心英雄区：大标题、月薪/工时输入胶囊、开始打工 CTA，周围悬浮秒薪/分钟/今日已赚小卡。",
+          tone: "轻松可信，像现有 Aurora Glass 的升级开场。",
+          density: "低。只讲核心价值，不提前堆满功能。",
+          motion: "背景光带缓慢漂移，收入小卡上下浮动，金额轻微实时跳动。",
+          tradeoff:
+            "最贴近现有应用，迁移成本低，第一眼轻盈顺滑；但叙事和功能解释较克制，需要后续页面承担更多细节。",
+        },
+        cockpit: {
+          name: "02 收入驾驶舱",
+          layout: "仪表盘预告：主收入卡、每小时/计时/进度指标、雷达区和横向数据 ticker。",
+          tone: "理性直接，强调这是一个可信的实时工资监控工具。",
+          density: "高。首次进入就能理解秒薪、工时、进度和成就。",
+          motion: "扫描线、雷达旋转、ticker 横移、进度条呼吸。",
+          tradeoff:
+            "解释效率最高，适合希望用户一进来就懂产品价值；但视觉更偏工具，需要控制科技感，避免偏离轻松趣味。",
+        },
+        theater: {
+          name: "03 打工小剧场",
+          layout: "漫画分镜：对话气泡、主角收入面板、成就章节小格。",
+          tone: "吐槽幽默，把打工过程讲成一场小剧场。",
+          density: "中低。突出情绪和成就，不强调所有统计项。",
+          motion: "幕布摆动、盖章弹动、金额实时增长。",
+          tradeoff:
+            "趣味性和记忆点最强，成就系统可以自然变成剧情推进；但需要更高文案质量，否则容易显得花哨。",
+        },
+        raceway: {
+          name: "04 今日进度赛道",
+          layout: "路线进度：从固定金额成就跑到日薪比例成就，底部有可推进的赛道。",
+          tone: "目标激励，强调下一站奖励和今日完成感。",
+          density: "中。兼顾核心金额、成就门槛和进度。",
+          motion: "赛道光带流动、进度条脉冲、当前收入胶囊轻微跳动。",
+          tradeoff:
+            "很适合突出成就和下一步奖励，能强化持续使用；但起始输入区会相对弱，需要和主 CTA 合并得更巧。",
+        },
+        lab: {
+          name: "05 实时粒子实验室",
+          layout: "全屏动效场：巨大短句、实时金额玻璃块、少量指标标签。",
+          tone: "高能酷感，把时间变成钱的过程做成实验反应。",
+          density: "低。主打第一眼冲击和品牌记忆。",
+          motion: "动态色场旋转、网格偏移、指标标签漂浮、金额跳动。",
+          tradeoff:
+            "视觉冲击最强，适合作为首次打开的惊艳开场；但抽象动效占比高，必须保证输入和按钮落点非常清楚。",
+        },
+        receipt: {
+          name: "06 发薪小票机",
+          layout: "左右结构：左侧价值说明和 CTA，右侧自动滚动的小票明细。",
+          tone: "克制有趣，像把今天的碎银自动打印出来。",
+          density: "中高。能解释秒薪、分钟收入、计时、下个成就和进度。",
+          motion: "纸张高光扫过，小票明细缓慢滚动，金额实时增长。",
+          tradeoff:
+            "信息表达完整，和收入被记录下来的主旨很贴；但艺术性相对内敛，需要靠纸张动效和微文案增加吸引力。",
+        },
+      };
+
+      const moneyNodes = Array.from(document.querySelectorAll(".live-money"));
+      const start = performance.now();
+
+      function tick(now) {
+        const elapsed = (now - start) / 1000;
+        moneyNodes.forEach((node, index) => {
+          const base = Number(node.dataset.base || 0);
+          const decimals = Number(node.dataset.decimals || 2);
+          const gain = (elapsed * (0.011 + index * 0.0017)) % 0.8;
+          node.textContent = `¥ ${(base + gain).toFixed(decimals)}`;
+        });
+        requestAnimationFrame(tick);
+      }
+
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        requestAnimationFrame(tick);
+      }
+
+      const toast = document.querySelector(".toast");
+      let toastTimer = 0;
+
+      function formatScheme(scheme) {
+        return [
+          `我选择 ${scheme.name}`,
+          "",
+          `布局：${scheme.layout}`,
+          `语气：${scheme.tone}`,
+          `信息密度：${scheme.density}`,
+          `动效：${scheme.motion}`,
+          `取舍：${scheme.tradeoff}`,
+          "",
+          "请基于这个方向继续实现 Meager Income 的 onboarding 页面，并保持现有应用的薄荷绿、水蓝、暖珊瑚、玻璃质感和实时工资/成就解锁主旨。",
+        ].join("\n");
+      }
+
+      function fallbackCopy(text) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+
+      function showToast(message) {
+        window.clearTimeout(toastTimer);
+        toast.textContent = message;
+        toast.classList.add("is-visible");
+        toastTimer = window.setTimeout(() => {
+          toast.classList.remove("is-visible");
+        }, 1500);
+      }
+
+      async function copyScheme(key, button) {
+        const scheme = schemes[key];
+        if (!scheme) return;
+
+        const text = formatScheme(scheme);
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            fallbackCopy(text);
+          }
+          document.querySelectorAll(".copy-button").forEach((item) => item.classList.remove("is-copied"));
+          button.classList.add("is-copied");
+          const originalText = button.textContent;
+          button.textContent = "已复制";
+          showToast(`${scheme.name} 已复制`);
+          window.setTimeout(() => {
+            button.classList.remove("is-copied");
+            button.textContent = originalText;
+          }, 1400);
+        } catch (error) {
+          fallbackCopy(text);
+          showToast(`${scheme.name} 已复制`);
+        }
+      }
+
+      document.querySelectorAll("[data-copy]").forEach((button) => {
+        button.addEventListener("click", () => copyScheme(button.dataset.copy, button));
+      });
+    </script>
+  </body>
+</html>

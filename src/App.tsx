@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useWorkTimer } from './hooks/useWorkTimer';
 import SalaryForm from './components/SalaryForm';
 import IncomeDisplay from './components/IncomeDisplay';
@@ -8,11 +8,24 @@ import ActionButtons from './components/ActionButtons';
 import IncomeRateCard from './components/IncomeRateCard';
 import AchievementList from './components/AchievementList';
 import { ArrowBackIcon, PowerArmIcon } from './components/Icons';
+import Onboarding from './Onboarding';
 import styles from './App.module.css';
 
 type ViewState = 'setup' | 'working';
+type AppRoute = 'onboarding' | 'app';
 
-const App: React.FC = () => {
+const APP_PATH = '/app';
+
+const getInitialRoute = (): AppRoute => {
+  if (typeof window === 'undefined') {
+    return 'onboarding';
+  }
+
+  const normalizedPath = window.location.pathname.replace(/\/+$/, '');
+  return normalizedPath === APP_PATH ? 'app' : 'onboarding';
+};
+
+const ApplicationPage: React.FC = () => {
   const [view, setView] = useState<ViewState>('setup');
 
   const {
@@ -157,6 +170,43 @@ const App: React.FC = () => {
       )}
     </div>
   );
+};
+
+const App: React.FC = () => {
+  const [route, setRoute] = useState<AppRoute>(getInitialRoute);
+
+  useEffect(() => {
+    const syncRoute = () => {
+      setRoute(getInitialRoute());
+    };
+
+    window.addEventListener('popstate', syncRoute);
+
+    return () => {
+      window.removeEventListener('popstate', syncRoute);
+    };
+  }, []);
+
+  useEffect(() => {
+    document.title = route === 'onboarding'
+      ? 'Meager Income Onboarding - Pixel Work'
+      : 'Meager Income - 实时工资可视化';
+  }, [route]);
+
+  const handleEnterApp = useCallback(() => {
+    if (getInitialRoute() !== 'app') {
+      window.history.pushState({ route: 'app' }, '', APP_PATH);
+    }
+
+    setRoute('app');
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, []);
+
+  if (route === 'onboarding') {
+    return <Onboarding onEnterApp={handleEnterApp} />;
+  }
+
+  return <ApplicationPage />;
 };
 
 export default App;
