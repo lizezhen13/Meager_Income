@@ -1,7 +1,7 @@
 # 💰 Meager Income
 
 <p align="center">
-  <a href="README.md">🇨🇳 中文</a> | 🇺🇸 English
+ 🌐 <a href="README.md">🇨🇳 中文</a> | 🇺🇸 English
 </p>
 
 A lightweight and fun **real-time salary visualizer**. Enter your salary information, and it will calculate in real time how much you earn every second, every minute, and every hour—making tedious work time visible and quantifiable.

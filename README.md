@@ -1,7 +1,7 @@
 # 💰 Meager Income
 
 <p align="center">
-  🇨🇳 中文 | <a href="README_EN.md">🇺🇸 English</a>
+  🌐 🇨🇳 中文 | <a href="README_EN.md">🇺🇸 English</a>
 </p>
 
 一个轻量有趣的**实时工资可视化**工具。输入你的薪资信息，它会为你实时计算每一秒、每一分、每一小时你赚了多少钱，让枯燥的打工时间变得可视化、可量化。
