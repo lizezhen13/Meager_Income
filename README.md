@@ -1,6 +1,6 @@
 # 💰 Meager Income
 
-<p align="right">
+<p align="center">
   🇨🇳 中文 | <a href="README_EN.md">🇺🇸 English</a>
 </p>
 
