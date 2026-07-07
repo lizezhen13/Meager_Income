@@ -1,4 +1,4 @@
-# 💰 Meager Income
+<h1 align="center">💰 Meager Income</h1>
 
 <p align="center">
  🌐 <a href="README.md">🇨🇳 中文</a> | 🇺🇸 English
